@@ -1,5 +1,5 @@
 import * as Path from "path";
-import {ByteVector} from "./byteVector";
+import { ByteVector } from "./byteVector";
 
 export class Guards {
     private static readonly MAX_LONG = BigInt("9223372036854775807");
@@ -33,6 +33,12 @@ export class Guards {
     public static greaterThanInclusive(value: number, lowerBound: number, name: string): void {
         if (value < lowerBound) {
             throw new Error(`Argument out of range: ${name} must greater than ${lowerBound}`);
+        }
+    }
+
+    public static equals(value: number, expectedValue: number, name: string): void {
+        if (value !== expectedValue) {
+            throw new Error(`Argument out of range: ${name} must equal ${expectedValue}`);
         }
     }
 

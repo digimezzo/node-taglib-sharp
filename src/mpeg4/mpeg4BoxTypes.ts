@@ -2,10 +2,8 @@ import { ByteVector, StringType } from "../byteVector";
 import AppleTag from "./appleTag";
 
 /**
- * Provides references to different box types used by the library.
- * This class is used to severely reduce the number of times 
- * these types are created in "AppleTag", greatly
- * improving the speed at which warm files are read.
+ * Provides references to different box types used by the library. This class is used to severely reduce the number
+ * of times these types are created in "AppleTag", greatly improving the speed at which warm files are read.
  */
 export default class Mpeg4BoxType {
     public static readonly aart = ByteVector.fromString("aART", StringType.UTF8).makeReadOnly();
@@ -38,7 +36,7 @@ export default class Mpeg4BoxType {
     public static readonly moov = ByteVector.fromString("moov", StringType.UTF8).makeReadOnly();
     public static readonly mvhd = ByteVector.fromString("mvhd", StringType.UTF8).makeReadOnly();
     public static readonly nam = AppleTag.fixId(ByteVector.fromString("nam", StringType.UTF8)).makeReadOnly();
-    public static readonly theName = ByteVector.fromString("name", StringType.UTF8).makeReadOnly(); // Had to use "theName" because "name" is reserved
+    public static readonly theName = ByteVector.fromString("name", StringType.UTF8).makeReadOnly(); // "theName" because "name" is reserved
     public static readonly role = ByteVector.fromString("role", StringType.UTF8).makeReadOnly();
     public static readonly skip = ByteVector.fromString("skip", StringType.UTF8).makeReadOnly();
     public static readonly soaa = ByteVector.fromString("soaa", StringType.UTF8).makeReadOnly(); // Album Artist Sort
@@ -64,6 +62,6 @@ export default class Mpeg4BoxType {
     public static readonly soun = ByteVector.fromString("soun", StringType.UTF8).makeReadOnly();
     public static readonly vide = ByteVector.fromString("vide", StringType.UTF8).makeReadOnly();
 
-    // Another handler type, found in wild in audio file ripped using iTunes
+    // Another handler type, found in wild in audio file ripped using iTunes.
     public static readonly alis = ByteVector.fromString("alis", StringType.UTF8).makeReadOnly();
 }

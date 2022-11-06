@@ -6,7 +6,6 @@ import IsoUserDataBox from "./boxes/isoUserDataBox";
 import Mpeg4FileParser from "./mpeg4FileParser";
 import Mpeg4Tag from "./mpeg4Tag";
 
-
 /**
  * Provides tagging and properties support for Mpeg4 files.
  */
@@ -33,19 +32,24 @@ export default class Mpeg4File extends File {
             }
 
             // TODO
-
         } finally {
             this.mode = FileAccessMode.Closed;
         }
     }
 
     /** @inheritDoc */
-    public get tag(): Tag { return this._tag; }
+    public get tag(): Tag {
+        return this._tag;
+    }
 
     /** @inheritDoc */
-    public get properties(): Properties { return this._properties; }
+    public get properties(): Properties {
+        return this._properties;
+    }
 
-    protected get udtaBoxes(): IsoUserDataBox[] { return this._udtaBoxes; }
+    protected get udtaBoxes(): IsoUserDataBox[] {
+        return this._udtaBoxes;
+    }
 
     /** @inheritDoc */
     public getTag(types: TagTypes, create: boolean): Tag {
@@ -66,6 +70,4 @@ export default class Mpeg4File extends File {
 
 // /////////////////////////////////////////////////////////////////////////
 // Register the file type
-[
-    "taglib/m4a",
-].forEach((mt) => File.addFileType(mt, Mpeg4File));
+["taglib/m4a"].forEach((mt) => File.addFileType(mt, Mpeg4File));

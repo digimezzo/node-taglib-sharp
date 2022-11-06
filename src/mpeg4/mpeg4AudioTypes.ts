@@ -48,5 +48,5 @@ export default [
     "USAC (Unified Speech and Audio Coding) (no SBR)",
     "SAOC (Spatial Audio Object Coding)",
     "Low Delay MPEG Surround",
-    "USAC (Unified Speech and Audio Coding)"
+    "USAC (Unified Speech and Audio Coding)",
 ];

@@ -1,13 +1,13 @@
 import { ByteVector, StringType } from "../byteVector";
 import { File } from "../file";
 import { Guards } from "../utils";
-import Mpeg4Box from "./mpeg4Box";
-import Mpeg4BoxType from "./mpeg4BoxTypes";
+import { Mpeg4Box } from "./mpeg4Box";
+import { Mpeg4BoxType } from "./mpeg4BoxType";
 
 /**
  *  Provides support for reading and writing headers for ISO/IEC 14496-12 boxes.
  */
-export default class Mpeg4BoxHeader {
+export class Mpeg4BoxHeader {
     /**
      *  Contains the box size.
      */

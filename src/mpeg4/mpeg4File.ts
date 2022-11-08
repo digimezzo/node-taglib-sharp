@@ -2,14 +2,14 @@ import { File, FileAccessMode, ReadStyle } from "../file";
 import { IFileAbstraction } from "../fileAbstraction";
 import { Properties } from "../properties";
 import { Tag, TagTypes } from "../tag";
-import IsoUserDataBox from "./boxes/isoUserDataBox";
-import Mpeg4FileParser from "./mpeg4FileParser";
-import Mpeg4Tag from "./mpeg4Tag";
+import { IsoUserDataBox } from "./boxes/isoUserDataBox";
+import { Mpeg4FileParser } from "./mpeg4FileParser";
+import { Mpeg4Tag } from "./mpeg4Tag";
 
 /**
  * Provides tagging and properties support for Mpeg4 files.
  */
-export default class Mpeg4File extends File {
+export class Mpeg4File extends File {
     private readonly _properties: Properties;
     private readonly _udtaBoxes: IsoUserDataBox[] = [];
     private readonly _tag: Mpeg4Tag;

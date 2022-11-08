@@ -1,7 +1,7 @@
 import { ByteVector } from "../byteVector";
 import { Tag, TagTypes } from "../tag";
 
-export default class AppleTag extends Tag {
+export class AppleTag extends Tag {
     public tagTypes: TagTypes;
 
     public get sizeOnDisk(): number {

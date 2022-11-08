@@ -1,7 +1,7 @@
 import CombinedTag from "../combinedTag";
 import { Tag, TagTypes } from "../tag";
 
-export default class Mpeg4Tag extends CombinedTag {
+export class Mpeg4Tag extends CombinedTag {
     /**
      * Constructs and initializes a new instance with no contents.
      */

@@ -1,15 +1,16 @@
 import { ByteVector } from "../byteVector";
 import { File } from "../file";
 import { Guards } from "../utils";
-import IsoFreeSpaceBox from "./boxes/isoFreeSpaceBox";
-import IsoHandlerBox from "./boxes/isoHandlerBox";
-import Mpeg4BoxHeader from "./mpeg4BoxHeader";
-import Mpeg4BoxType from "./mpeg4BoxTypes";
+import { IsoFreeSpaceBox } from "./boxes/isoFreeSpaceBox";
+import { IsoHandlerBox } from "./boxes/isoHandlerBox";
+import { Mpeg4BoxFactory } from "./mpeg4BoxFactory";
+import { Mpeg4BoxHeader } from "./mpeg4BoxHeader";
+import { Mpeg4BoxType } from "./mpeg4BoxType";
 
 /**
  *  Provides a generic implementation of a ISO/IEC 14496-12 box.
  */
-export default class Mpeg4Box {
+export class Mpeg4Box {
     /**
      * Contains the box header.
      */
@@ -99,7 +100,7 @@ export default class Mpeg4Box {
 
     /**
      * Gets whether or not the current instance has children.
-     * @returns A  boolean value indicating whether or not the current instance has any children.
+     * @returns A boolean value indicating whether or not the current instance has any children.
      */
     public get hasChildren(): boolean {
         return this.children !== null && this.children !== undefined && this.children.length > 0;
@@ -117,7 +118,7 @@ export default class Mpeg4Box {
      * Gets the size of the data contained in the current instance, minus the size of any box specific headers.
      * @returns A number value containing the size of the data contained in the current instance.
      */
-    public get dataSize(): number {
+    protected get dataSize(): number {
         return this._header.dataSize + this._dataPosition - this.dataPosition;
     }
 
@@ -125,7 +126,7 @@ export default class Mpeg4Box {
      * Gets the position of the data contained in the current instance, after any box specific headers.
      * @returns A number value containing the position of the data contained in the current instance.
      */
-    public get dataPosition(): number {
+    protected get dataPosition(): number {
         return this._dataPosition;
     }
 
@@ -133,7 +134,7 @@ export default class Mpeg4Box {
      * Gets the header of the current instance.
      * @returns A Mpeg4BoxHeader object containing the header of the current instance.
      */
-    public get header(): Mpeg4BoxHeader {
+    protected get header(): Mpeg4BoxHeader {
         return this._header;
     }
 
@@ -291,7 +292,7 @@ export default class Mpeg4Box {
         this._header.box = this;
 
         while (position < end) {
-            const child: Mpeg4Box = Mpeg4BoxFactory.CreateBox(file, position, this._header, this.handler, children.length);
+            const child: Mpeg4Box = Mpeg4BoxFactory.createBox(file, position, this._header, this.handler, children.length);
 
             if (child.size === 0) {
                 break;
@@ -346,10 +347,10 @@ export default class Mpeg4Box {
 
             if (this._header.dataSize !== 0 && sizeDifference >= 8) {
                 // If we have room for free space, add it so we don't have to resize the file.
-                output.push(new IsoFreeSpaceBox(sizeDifference).render());
+                output.addByteVector(IsoFreeSpaceBox.isoFreeSpaceBox_fromPadding(sizeDifference).render());
             } else {
                 // If we're getting bigger, get a lot bigger so we might not have to again.
-                output.push(new IsoFreeSpaceBox(2048).render());
+                output.addByteVector(IsoFreeSpaceBox.isoFreeSpaceBox_fromPadding(2048).render());
             }
         }
 

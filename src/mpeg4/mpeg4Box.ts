@@ -67,7 +67,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the MPEG-4 box type of the current instance.
-     * @returns A ByteVector object containing the four byte box type of the current instance.
      */
     public get boxType(): ByteVector {
         return this._header.boxType;
@@ -75,7 +74,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the total size of the current instance as it last appeared on disk.
-     * @returns  A number value containing the total size of the current instance as it last appeared on disk.
      */
     public get size(): number {
         return this._header.totalBoxSize;
@@ -83,7 +81,6 @@ export class Mpeg4Box {
 
     /**
      * Gets and sets the data contained in the current instance.
-     * @returns A ByteVector object containing the data contained in the current instance.
      */
     public get data(): ByteVector {
         return undefined;
@@ -92,7 +89,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the children of the current instance.
-     * @returns An Mpeg4Box[] object enumerating the children of the current instance.
      */
     public get children(): Mpeg4Box[] {
         return this._children;
@@ -100,7 +96,6 @@ export class Mpeg4Box {
 
     /**
      * Gets whether or not the current instance has children.
-     * @returns A boolean value indicating whether or not the current instance has any children.
      */
     public get hasChildren(): boolean {
         return this.children !== null && this.children !== undefined && this.children.length > 0;
@@ -108,7 +103,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the handler box that applies to the current instance.
-     * @returns A IsoHandlerBox object containing the handler that applies to the current instance, or undefined if no handler applies.
      */
     public get handler(): IsoHandlerBox {
         return this._handler;
@@ -116,7 +110,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the size of the data contained in the current instance, minus the size of any box specific headers.
-     * @returns A number value containing the size of the data contained in the current instance.
      */
     protected get dataSize(): number {
         return this._header.dataSize + this._dataPosition - this.dataPosition;
@@ -124,7 +117,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the position of the data contained in the current instance, after any box specific headers.
-     * @returns A number value containing the position of the data contained in the current instance.
      */
     protected get dataPosition(): number {
         return this._dataPosition;
@@ -132,7 +124,6 @@ export class Mpeg4Box {
 
     /**
      * Gets the header of the current instance.
-     * @returns A Mpeg4BoxHeader object containing the header of the current instance.
      */
     protected get header(): Mpeg4BoxHeader {
         return this._header;
@@ -321,11 +312,12 @@ export class Mpeg4Box {
     }
 
     /**
-     *
-     * @param topData
-     * @returns
+     * Renders the current instance, including its children, to a new ByteVector object, preceding the
+     * contents with a specified block of data.
+     * @param topData  A ByteVector object containing box specific header data to precede the content.
+     * @returns A ByteVector object containing the rendered version of the current instance.
      */
-    public renderUsingTopData(topData: ByteVector): ByteVector {
+    protected renderUsingTopData(topData: ByteVector): ByteVector {
         let freeFound = false;
         const output: ByteVector = ByteVector.empty();
 

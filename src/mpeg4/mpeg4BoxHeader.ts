@@ -9,6 +9,16 @@ import { Mpeg4BoxType } from "./mpeg4BoxType";
  */
 export class Mpeg4BoxHeader {
     /**
+     * The type of box represented by the current instance.
+     */
+    private _boxType: ByteVector;
+
+    /**
+     * The extended type of the box represented by the current instance.
+     */
+    private _extendedType: ByteVector;
+
+    /**
      *  Contains the box size.
      */
     private _boxSize: number;
@@ -40,19 +50,20 @@ export class Mpeg4BoxHeader {
 
     /**
      * Gets the type of box represented by the current instance.
-     * @returns A ByteVector object containing the 4 byte box type.
      */
-    public boxType: ByteVector;
+    public get boxType(): ByteVector {
+        return this._boxType;
+    }
 
     /**
      * Gets the extended type of the box represented by the current instance.
-     * @returns A ByteVector object containing the 16 byte extended type, or undefined if BoxType is not uuid.
      */
-    public extendedType: ByteVector;
+    public get extendedType(): ByteVector {
+        return this._extendedType;
+    }
 
     /**
      * Gets the size of the header represented by the current instance.
-     * @returns  A number value containing the size of the header represented by the current instance.
      */
     public get headerSize(): number {
         return this._headerSize;
@@ -111,7 +122,7 @@ export class Mpeg4BoxHeader {
 
         header._headerSize = 8;
         header._boxSize = data.subarray(offset, 4).toUint();
-        header.boxType = data.subarray(offset + 4, 4);
+        header._boxType = data.subarray(offset + 4, 4);
 
         // If the size is 1, that just tells us we have a massive ULONG size waiting for us in the next 8 bytes.
         if (header._boxSize === 1) {
@@ -130,9 +141,9 @@ export class Mpeg4BoxHeader {
                 }
 
                 header._headerSize += 16;
-                header.extendedType = data.subarray(offset, 16);
+                header._extendedType = data.subarray(offset, 16);
             } else {
-                header.extendedType = undefined;
+                header._extendedType = undefined;
             }
 
             if (header._boxSize > file.length - position) {
@@ -165,7 +176,7 @@ export class Mpeg4BoxHeader {
         header._position = -1;
         header.box = undefined;
         header._fromDisk = false;
-        header.boxType = type;
+        header._boxType = type;
 
         Guards.notNullOrUndefined(type, "type");
         Guards.equals(type.length, 4, "type.length");
@@ -178,7 +189,7 @@ export class Mpeg4BoxHeader {
                 throw new Error("Extended type only permitted for 'uuid'.");
             }
 
-            header.extendedType = extendedType;
+            header._extendedType = extendedType;
             return;
         }
 
@@ -188,7 +199,7 @@ export class Mpeg4BoxHeader {
         header._boxSize = 16;
         header._headerSize = 16;
 
-        header.extendedType = extendedType;
+        header._extendedType = extendedType;
 
         return new Mpeg4BoxHeader();
     }

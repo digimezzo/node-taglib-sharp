@@ -34,7 +34,7 @@ export class FullBox extends Mpeg4Box {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see FullBox.
      */
-    protected fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): FullBox {
+    protected static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): FullBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
@@ -52,11 +52,11 @@ export class FullBox extends Mpeg4Box {
     /**
      * Constructs and initializes a new instance of @see FullBox with a provided header, version, and flags.
      * @param header A @see Mpeg4BoxHeader object containing the header to use for the new instance.
-     * @param file A value containing the version of the new instance.
-     * @param handler A value containing the flags for the new instance.
+     * @param version A value containing the version of the new instance.
+     * @param flags A value containing the flags for the new instance.
      * @returns A new instance of @see FullBox.
      */
-    protected fromHeaderVersionAndFlags(header: Mpeg4BoxHeader, version: number, flags: number): FullBox {
+    protected static fromHeaderVersionAndFlags(header: Mpeg4BoxHeader, version: number, flags: number): FullBox {
         const base: Mpeg4Box = Mpeg4Box.fromHeader(header);
 
         const fullBox: FullBox = base as FullBox;
@@ -73,7 +73,7 @@ export class FullBox extends Mpeg4Box {
      * @param flags A value containing the flags for the new instance.
      * @returns A new instance of @see FullBox.
      */
-    protected fromTypeVersionAndFlags(type: ByteVector, version: number, flags: number): FullBox {
+    protected static fromTypeVersionAndFlags(type: ByteVector, version: number, flags: number): FullBox {
         return this.fromHeaderVersionAndFlags(Mpeg4BoxHeader.fromType(type), version, flags);
     }
 

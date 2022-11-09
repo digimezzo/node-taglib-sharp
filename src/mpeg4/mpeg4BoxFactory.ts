@@ -1,5 +1,6 @@
 import { File } from "../file";
 import { IsoHandlerBox } from "./boxes/isoHandlerBox";
+import { Mpeg4Box } from "./mpeg4Box";
 import { Mpeg4BoxHeader } from "./mpeg4BoxHeader";
 
 /**

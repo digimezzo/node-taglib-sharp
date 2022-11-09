@@ -8,7 +8,7 @@ export class IsoHandlerBox {
 
     /**
      * Gets the handler type of the current instance.
-     * @returns A ByteVector object containing the handler type of the current instance.
+     * @returns A @see ByteVector object containing the handler type of the current instance.
      */
     public get handlerType(): ByteVector {
         return this._handlerType;

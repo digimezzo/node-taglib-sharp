@@ -3,7 +3,7 @@ import { AppleTag } from "./appleTag";
 
 /**
  * Provides references to different box types used by the library. This class is used to severely reduce the number
- * of times these types are created in "AppleTag", greatly improving the speed at which warm files are read.
+ * of times these types are created in @see AppleTag, greatly improving the speed at which warm files are read.
  */
 export class Mpeg4BoxType {
     public static readonly aart = ByteVector.fromString("aART", StringType.UTF8).makeReadOnly();

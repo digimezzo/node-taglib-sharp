@@ -32,10 +32,10 @@ export class Mpeg4Box {
     private _children: Mpeg4Box[] = undefined;
 
     /**
-     * Constructs and initializes a new instance of Mpeg4Box with a specified header and handler.
-     * @param header A Mpeg4BoxHeader object describing the new instance.
-     * @param handler A IsoHandlerBox object containing the handler that applies to the new instance, or undefined if no handler applies.
-     * @returns A new instance of Mpeg4Box with a specified header and handler.
+     * Constructs and initializes a new instance of @see Mpeg4Box with a specified header and handler.
+     * @param header A @see Mpeg4BoxHeader object describing the new instance.
+     * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance, or undefined if no handler applies.
+     * @returns A new instance of @see Mpeg4Box with a specified header and handler.
      */
     public static fromHeaderAndHandler(header: Mpeg4BoxHeader, handler: IsoHandlerBox): Mpeg4Box {
         const box: Mpeg4Box = new Mpeg4Box();
@@ -44,9 +44,9 @@ export class Mpeg4Box {
     }
 
     /**
-     * Constructs and initializes a new instance of Mpeg4Box with a specified header.
-     * @param header A Mpeg4BoxHeader object describing the new instance.
-     * @returns A new instance of Mpeg4Box with a specified header.
+     * Constructs and initializes a new instance of @see Mpeg4Box with a specified header.
+     * @param header A @see Mpeg4BoxHeader object describing the new instance.
+     * @returns A new instance of @see Mpeg4Box with a specified header.
      */
     public static fromHeader(header: Mpeg4BoxHeader): Mpeg4Box {
         const box: Mpeg4Box = new Mpeg4Box();
@@ -55,9 +55,9 @@ export class Mpeg4Box {
     }
 
     /**
-     * Constructs and initializes a new instance of Mpeg4Box with a specified box type.
-     * @param type A ByteVector object containing the box type to use for the new instance.
-     * @returns A new instance of Mpeg4Box with a specified box type.
+     * Constructs and initializes a new instance of @see Mpeg4Box with a specified box type.
+     * @param type A @see ByteVector object containing the box type to use for the new instance.
+     * @returns A new instance of @see Mpeg4Box with a specified box type.
      */
     public static fromType(type: ByteVector): Mpeg4Box {
         const box: Mpeg4Box = new Mpeg4Box();
@@ -131,7 +131,7 @@ export class Mpeg4Box {
 
     /**
      * Renders the current instance, including its children, to a new ByteVector object.
-     * @returns A ByteVector object containing the rendered version of the current instance.
+     * @returns A @see ByteVector object containing the rendered version of the current instance.
      */
     public render(): ByteVector {
         return this.renderUsingTopData(ByteVector.empty());
@@ -139,8 +139,8 @@ export class Mpeg4Box {
 
     /**
      *  Gets a child box from the current instance by finding a matching box type.
-     * @param type  A ByteVector object containing the box type to match.
-     * @returns  A Mpeg4Box object containing the matched box, or undefined if no matching box was found.
+     * @param type  A @see ByteVector object containing the box type to match.
+     * @returns  A @see Mpeg4Box object containing the matched box, or undefined if no matching box was found.
      */
     public getChild(type: ByteVector): Mpeg4Box {
         if (this.children === null || this.children === undefined) {
@@ -158,8 +158,8 @@ export class Mpeg4Box {
 
     /**
      * Gets all child boxes from the current instance by finding a matching box type.
-     * @param type A ByteVector object containing the box type to match.
-     * @returns A List of Mpeg4Box objects containing the matched box, or undefined if no matching boxes was found.
+     * @param type A @see ByteVector object containing the box type to match.
+     * @returns A @see Mpeg4Box[] object containing the matched box, or undefined if no matching boxes was found.
      */
     public getChildren(type: ByteVector): Mpeg4Box[] {
         if (this.children === null || this.children === undefined) {
@@ -183,8 +183,8 @@ export class Mpeg4Box {
 
     /**
      * Gets a child box from the current instance by finding a matching box type, searching recursively.
-     * @param type  A ByteVector object containing the box type to match.
-     * @returns A Mpeg4Box object containing the matched box, or undefined if no matching box was found.
+     * @param type  A @see ByteVector object containing the box type to match.
+     * @returns A @see Mpeg4Box object containing the matched box, or undefined if no matching box was found.
      */
     public getChildRecursively(type: ByteVector): Mpeg4Box {
         if (this.children === null || this.children === undefined) {
@@ -210,7 +210,7 @@ export class Mpeg4Box {
 
     /**
      * Removes all children with a specified box type from the current instance.
-     * @param type A ByteVector object containing the box type to remove.
+     * @param type A @see ByteVector object containing the box type to remove.
      */
     public removeChildByType(type: ByteVector): void {
         if (this.children === null || this.children === undefined) {
@@ -230,7 +230,7 @@ export class Mpeg4Box {
 
     /**
      * Removes a specified box from the current instance.
-     * @param box A Mpeg4Box object to remove from the current instance.
+     * @param box A @see Mpeg4Box object to remove from the current instance.
      */
     public removeChildByBox(box: Mpeg4Box): void {
         if (this.children === null || this.children === undefined) {
@@ -246,7 +246,7 @@ export class Mpeg4Box {
 
     /**
      * Adds a specified box to the current instance.
-     * @param box A Mpeg4Box object to add to the current instance.
+     * @param box A @see Mpeg4Box object to add to the current instance.
      */
     public addChild(box: Mpeg4Box): void {
         if (this.children === null || this.children === undefined) {
@@ -270,7 +270,7 @@ export class Mpeg4Box {
     /**
      * Loads the children of the current instance from a specified file using the internal data position and size.
      * @param file The File from which the current instance was read and from which to read the children.
-     * @returns A Mpeg4Box[] object enumerating the boxes read from the file.
+     * @returns A @see Mpeg4Box[] object enumerating the boxes read from the file.
      */
     public loadChildren(file: File): Mpeg4Box[] {
         Guards.notNullOrUndefined(file, "file");
@@ -300,8 +300,8 @@ export class Mpeg4Box {
 
     /**
      * Loads the data of the current instance from a specified file using the internal data position and size.
-     * @param file The File from which the current instance was read and from which to read the data.
-     * @returns A ByteVector object containing the data read from the file.
+     * @param file The @see File from which the current instance was read and from which to read the data.
+     * @returns A @see ByteVector object containing the data read from the file.
      */
     public loadData(file: File): ByteVector {
         Guards.notNullOrUndefined(file, "file");
@@ -312,10 +312,10 @@ export class Mpeg4Box {
     }
 
     /**
-     * Renders the current instance, including its children, to a new ByteVector object, preceding the
+     * Renders the current instance, including its children, to a new @see ByteVector object, preceding the
      * contents with a specified block of data.
-     * @param topData  A ByteVector object containing box specific header data to precede the content.
-     * @returns A ByteVector object containing the rendered version of the current instance.
+     * @param topData  A @see ByteVector object containing box specific header data to precede the content.
+     * @returns A @see ByteVector object containing the rendered version of the current instance.
      */
     protected renderUsingTopData(topData: ByteVector): ByteVector {
         let freeFound = false;

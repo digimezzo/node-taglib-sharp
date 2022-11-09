@@ -71,7 +71,7 @@ export class Mpeg4BoxHeader {
 
     /**
      * Gets and sets the size of the data in the box described by the current instance.
-     * @returns A number value containing the size of the data in the box described by the current instance.
+     * @returns A value containing the size of the data in the box described by the current instance.
      */
     public get dataSize(): number {
         return this._boxSize - this._headerSize;
@@ -83,7 +83,7 @@ export class Mpeg4BoxHeader {
 
     /**
      * Gets the total size of the box described by the current instance.
-     * @returns A number value containing the total size of the box described by the current instance.
+     * @returns A value containing the total size of the box described by the current instance.
      */
     public get totalBoxSize(): number {
         return this._boxSize;
@@ -91,17 +91,17 @@ export class Mpeg4BoxHeader {
 
     /**
      * Gets the position box represented by the current instance in the file it comes from.
-     * @returns A number value containing the position box represented by the current instance in the file it comes from.
+     * @returns A value containing the position box represented by the current instance in the file it comes from.
      */
     public get position(): number {
         return this._fromDisk ? this._position : -1;
     }
 
     /**
-     * Constructs and initializes a new instance of Mpeg4BoxHeader by reading it from a specified seek position in a specified file.
-     * @param file A File object to read the new instance from.
-     * @param position A number value specifying the seek position in File at which to start reading.
-     * @returns A new instance of Mpeg4BoxHeader by reading it from a specified seek position in a specified file.
+     * Constructs and initializes a new instance of @see Mpeg4BoxHeader by reading it from a specified seek position in a specified file.
+     * @param file A @see File object to read the new instance from.
+     * @param position A value specifying the seek position in File at which to start reading.
+     * @returns A new instance of @see Mpeg4BoxHeader by reading it from a specified seek position in a specified file.
      */
     public static fromFile(file: File, position: number): Mpeg4BoxHeader {
         Guards.notNullOrUndefined(file, "file");
@@ -157,7 +157,7 @@ export class Mpeg4BoxHeader {
     }
 
     /**
-     * Constructs and initializes a new instance of Mpeg4BoxHeader with a specified box type.
+     * Constructs and initializes a new instance of @see Mpeg4BoxHeader with a specified box type.
      * @param type  A ByteVector object containing the four byte box type.
      * @returns A new instance of Mpeg4BoxHeader with a specified box type.
      */
@@ -166,10 +166,10 @@ export class Mpeg4BoxHeader {
     }
 
     /**
-     * Constructs and initializes a new instance of Mpeg4BoxHeader with a specified box type and optionally extended type.
-     * @param type A ByteVector object containing the four byte box type.
-     * @param extendedType A ByteVector object containing the four byte box type.
-     * @returns A new instance of Mpeg4BoxHeader with a specified box type and optionally extended type.
+     * Constructs and initializes a new instance of @see Mpeg4BoxHeader with a specified box type and optionally extended type.
+     * @param type A @see ByteVector object containing the four byte box type.
+     * @param extendedType A @see ByteVector object containing the four byte box type.
+     * @returns A new instance of @see Mpeg4BoxHeader with a specified box type and optionally extended type.
      */
     public static fromTypes(type: ByteVector, extendedType: ByteVector): Mpeg4BoxHeader {
         const header = new Mpeg4BoxHeader();
@@ -206,8 +206,8 @@ export class Mpeg4BoxHeader {
 
     /**
      *  Overwrites the header on disk, updating it to include a change in the size of the box.
-     * @param file  A File object containing the file from which the box originates.
-     * @param sizeChange A number value indicating the change in the size of the box described by the current instance.
+     * @param file  A @see File object containing the file from which the box originates.
+     * @param sizeChange A value indicating the change in the size of the box described by the current instance.
      * @returns  The size change encountered by the box that parents the box described the the current instance, equal to the
      * size change of the box plus any size change that should happen in the header.
      */
@@ -227,7 +227,7 @@ export class Mpeg4BoxHeader {
 
     /**
      * Renders the header represented by the current instance.
-     * @returns A ByteVector object containing the rendered version of the current instance.
+     * @returns A @see ByteVector object containing the rendered version of the current instance.
      */
     public render(): ByteVector {
         // Enlarge for size if necessary.

@@ -1,5 +1,6 @@
 import { ByteVector } from "../../byteVector";
 import { File } from "../../file";
+import { Guards } from "../../utils";
 import { Mpeg4Box } from "../mpeg4Box";
 import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
 import { IsoHandlerBox } from "./isoHandlerBox";
@@ -11,7 +12,7 @@ export class FullBox extends Mpeg4Box {
     /**
      * Gets the position of the data contained in the current instance, after any box specific headers.
      */
-    protected get dataPosition(): number {
+    public get dataPosition(): number {
         return super.dataPosition + 4;
     }
 
@@ -34,8 +35,18 @@ export class FullBox extends Mpeg4Box {
      * @returns A new instance of @see FullBox.
      */
     protected fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): FullBox {
-        // TODO
-        return undefined;
+        Guards.notNullOrUndefined(file, "file");
+
+        const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
+
+        file.seek(base.dataPosition);
+        const headerData: ByteVector = file.readBlock(4);
+
+        const fullBox: FullBox = base as FullBox;
+        fullBox.version = headerData.get(0);
+        fullBox.flags = headerData.subarray(1, 3).toUint();
+
+        return fullBox;
     }
 
     /**
@@ -46,8 +57,13 @@ export class FullBox extends Mpeg4Box {
      * @returns A new instance of @see FullBox.
      */
     protected fromHeaderVersionAndFlags(header: Mpeg4BoxHeader, version: number, flags: number): FullBox {
-        // TODO
-        return undefined;
+        const base: Mpeg4Box = Mpeg4Box.fromHeader(header);
+
+        const fullBox: FullBox = base as FullBox;
+        fullBox.version = version;
+        fullBox.flags = flags;
+
+        return fullBox;
     }
 
     /**
@@ -58,8 +74,7 @@ export class FullBox extends Mpeg4Box {
      * @returns A new instance of @see FullBox.
      */
     protected fromTypeVersionAndFlags(type: ByteVector, version: number, flags: number): FullBox {
-        // TODO
-        return undefined;
+        return this.fromHeaderVersionAndFlags(Mpeg4BoxHeader.fromType(type), version, flags);
     }
 
     /**
@@ -69,7 +84,13 @@ export class FullBox extends Mpeg4Box {
      * @returns A @see ByteVector object containing the rendered version of the current instance.
      */
     protected renderUsingTopData(topData: ByteVector): ByteVector {
-        // TODO
-        return undefined;
+        // TODO: not sure if this is correct. I don't understand the syntax in the original code.
+        const output: ByteVector = ByteVector.concatenate(
+            ByteVector.fromInt(this.version),
+            ByteVector.fromUint(this.flags).subarray(1, 3),
+            topData
+        );
+
+        return super.renderUsingTopData(output);
     }
 }

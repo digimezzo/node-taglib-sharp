@@ -118,7 +118,7 @@ export class Mpeg4Box {
     /**
      * Gets the position of the data contained in the current instance, after any box specific headers.
      */
-    protected get dataPosition(): number {
+    public get dataPosition(): number {
         return this._dataPosition;
     }
 

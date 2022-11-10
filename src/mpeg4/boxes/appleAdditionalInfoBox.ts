@@ -60,7 +60,7 @@ export class AppleAdditionalInfoBox extends FullBox {
     public get text(): string {
         return StringUtils.trimStart(this._data.toString(StringType.Latin1), "\0");
     }
-    public set value(v: string) {
+    public set text(v: string) {
         this._data = ByteVector.fromString(v, StringType.Latin1);
     }
 }

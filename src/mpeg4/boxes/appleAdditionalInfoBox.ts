@@ -14,6 +14,10 @@ export class AppleAdditionalInfoBox extends FullBox {
      */
     private _data: ByteVector;
 
+    public constructor() {
+        super();
+    }
+
     /**
      * Constructs and initializes a new instance of @see AppleAdditionalInfoBox with a provided header
      * and handler by reading the contents from a specified file.

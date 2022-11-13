@@ -9,10 +9,6 @@ import { IsoHandlerBox } from "./isoHandlerBox";
  * This class extends @see Mpeg4Box to provide an implementation of an Apple AnnotationBox.
  */
 export class AppleAnnotationBox extends Mpeg4Box {
-    public constructor() {
-        super();
-    }
-
     /**
      * The children of the current instance.
      */
@@ -23,6 +19,10 @@ export class AppleAnnotationBox extends Mpeg4Box {
      */
     public get children(): Mpeg4Box[] {
         return this._internalChildren;
+    }
+
+    public constructor() {
+        super();
     }
 
     /**

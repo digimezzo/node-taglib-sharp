@@ -14,13 +14,6 @@ export class AppleAnnotationBox extends Mpeg4Box {
      */
     private _internalChildren: Mpeg4Box[];
 
-    /**
-     * Gets the children of the current instance.
-     */
-    public get children(): Mpeg4Box[] {
-        return this._internalChildren;
-    }
-
     public constructor() {
         super();
     }
@@ -54,5 +47,12 @@ export class AppleAnnotationBox extends Mpeg4Box {
         appleAnnotationBox._internalChildren = [];
 
         return appleAnnotationBox;
+    }
+
+    /**
+     * Gets the children of the current instance.
+     */
+    public get children(): Mpeg4Box[] {
+        return this._internalChildren;
     }
 }

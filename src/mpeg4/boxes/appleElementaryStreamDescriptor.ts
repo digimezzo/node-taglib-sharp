@@ -156,7 +156,7 @@ export class AppleElementaryStreamDescriptor extends FullBox {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see AppleElementaryStreamDescriptor
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleElementaryStreamDescriptor {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleElementaryStreamDescriptor {
         /* ES_Descriptor Specifications
          *  Section 7.2.6.5 http://ecee.colorado.edu/~ecen5653/ecen5653/papers/ISO%2014496-1%202004.PDF
          */

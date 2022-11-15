@@ -26,7 +26,7 @@ export class AppleItemListBox extends Mpeg4Box {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see AppleItemListBox
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleItemListBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleItemListBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
@@ -41,7 +41,7 @@ export class AppleItemListBox extends Mpeg4Box {
      * Constructs and initializes a new instance of @see AppleItemListBox with no children.
      * @returns A new instance of @see AppleItemListBox
      */
-    public fromEmpty(): AppleItemListBox {
+    public static fromEmpty(): AppleItemListBox {
         const base: Mpeg4Box = Mpeg4Box.fromType(ByteVector.fromString("ilst", StringType.UTF8));
         const appleItemListBox: AppleItemListBox = base as AppleItemListBox;
 

@@ -58,7 +58,7 @@ export class AppleDataBox extends FullBox {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see AppleDataBox
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleDataBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleDataBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: FullBox = FullBox.fromHeaderFileAndHandler(header, file, handler);

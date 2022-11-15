@@ -26,7 +26,7 @@ export class AppleAnnotationBox extends Mpeg4Box {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see AppleAnnotationBox
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleAnnotationBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleAnnotationBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
@@ -41,7 +41,7 @@ export class AppleAnnotationBox extends Mpeg4Box {
      * @param type A @see ByteVector object containing a 4-byte box type.
      * @returns A new instance of @see AppleAnnotationBox
      */
-    public fromType(type: ByteVector): AppleAnnotationBox {
+    public static fromType(type: ByteVector): AppleAnnotationBox {
         const base: Mpeg4Box = Mpeg4Box.fromType(type);
         const appleAnnotationBox: AppleAnnotationBox = base as AppleAnnotationBox;
         appleAnnotationBox._internalChildren = [];

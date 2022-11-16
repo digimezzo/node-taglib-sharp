@@ -1,9 +1,9 @@
-import { FullBox } from "./fullBox";
-import { File } from "../../file";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
 import { ByteVector } from "../../byteVector";
+import { File } from "../../file";
 import { Guards } from "../../utils";
+import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
+import { FullBox } from "./fullBox";
+import { IsoHandlerBox } from "./isoHandlerBox";
 
 /**
  * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 ChunkOffsetBox.
@@ -24,18 +24,18 @@ export class IsoChunkOffsetBox extends FullBox {
      * @param header A @see Mpeg4BoxHeader object containing the header to use for the new instance.
      * @param file A @see File object to read the contents of the box from.
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
-     * @returns 
+     * @returns
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): IsoChunkOffsetBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): IsoChunkOffsetBox {
         const base: FullBox = FullBox.fromHeaderFileAndHandler(header, file, handler);
         const isoChunkOffsetBox: IsoChunkOffsetBox = base as IsoChunkOffsetBox;
 
         const box_data: ByteVector = file.readBlock(isoChunkOffsetBox.dataSize);
 
-        this._offsets = [box_data.subarray(0, 4).toUint()];
+        isoChunkOffsetBox._offsets = [box_data.subarray(0, 4).toUint()];
 
-        for (let i = 0; i < this._offsets.length; i++) {
-            this._offsets[i] = box_data.subarray(4 + i * 4, 4).toUint();
+        for (let i = 0; i < isoChunkOffsetBox._offsets.length; i++) {
+            isoChunkOffsetBox._offsets[i] = box_data.subarray(4 + i * 4, 4).toUint();
         }
 
         return isoChunkOffsetBox;
@@ -69,7 +69,7 @@ export class IsoChunkOffsetBox extends FullBox {
      * @param after A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-     public overwrite(file: File, sizeDifference: bigint, after: bigint): void {
+    public overwrite(file: File, sizeDifference: bigint, after: bigint): void {
         Guards.notNullOrUndefined(file, "file");
 
         file.insert(this.renderUsingSizeDifference(sizeDifference, after), this.header.position, this.size);
@@ -81,7 +81,7 @@ export class IsoChunkOffsetBox extends FullBox {
      * @param after  A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-     public renderUsingSizeDifference(sizeDifference: bigint, after: bigint): ByteVector {
+    public renderUsingSizeDifference(sizeDifference: bigint, after: bigint): ByteVector {
         for (let i = 0; i < this.offsets.length; i++) {
             if (this.offsets[i] >= after) {
                 this.offsets[i] = this.offsets[i] + Number(sizeDifference);

@@ -6,7 +6,7 @@ import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
 import { IsoHandlerBox } from "./isoHandlerBox";
 
 /**
- * Provides an implementation of a ISO/IEC 14496-12 FullBox.
+ * This class extends @see Mpeg4Box to provide an implementation of a ISO/IEC 14496-12 FullBox.
  */
 export class FullBox extends Mpeg4Box {
     /**

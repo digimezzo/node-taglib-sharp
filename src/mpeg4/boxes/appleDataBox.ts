@@ -40,6 +40,9 @@ export enum FlagType {
     ContainsBmpData = 0x1b,
 }
 
+/**
+ * This class extends @see FullBox to provide an implementation of an Apple DataBox.
+ */
 export class AppleDataBox extends FullBox {
     /**
      * Contains the box data.

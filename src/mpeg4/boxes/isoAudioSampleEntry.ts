@@ -9,7 +9,8 @@ import { IsoHandlerBox } from "./isoHandlerBox";
 import { IsoSampleEntry } from "./isoSampleEntry";
 
 /**
- * Provides an implementation of a ISO/IEC 14496-12 AudioSampleEntry and support for reading MPEG-4 video properties.
+ * This class extends @see IsoSampleEntry and implements @see IAudioCodec to provide an implementation of a 
+ * ISO/IEC 14496-12 AudioSampleEntry and support for reading MPEG-4 video properties.
  */
 export class IsoAudioSampleEntry extends IsoSampleEntry implements IAudioCodec {
     /**

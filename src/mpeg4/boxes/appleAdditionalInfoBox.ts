@@ -26,7 +26,7 @@ export class AppleAdditionalInfoBox extends FullBox {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see AppleAdditionalInfoBox.
      */
-    protected static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleAdditionalInfoBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): AppleAdditionalInfoBox {
         const base: FullBox = FullBox.fromHeaderFileAndHandler(header, file, handler);
         const appleAdditionalInfoBox: AppleAdditionalInfoBox = base as AppleAdditionalInfoBox;
         appleAdditionalInfoBox.data = file.readBlock(appleAdditionalInfoBox.dataSize > 0 ? appleAdditionalInfoBox.dataSize : 0);

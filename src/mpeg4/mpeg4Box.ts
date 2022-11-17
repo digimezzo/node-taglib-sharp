@@ -339,10 +339,10 @@ export class Mpeg4Box {
 
             if (this._header.dataSize !== 0 && sizeDifference >= 8) {
                 // If we have room for free space, add it so we don't have to resize the file.
-                output.addByteVector(IsoFreeSpaceBox.isoFreeSpaceBox_fromPadding(sizeDifference).render());
+                output.addByteVector(IsoFreeSpaceBox.fromPadding(sizeDifference).render());
             } else {
                 // If we're getting bigger, get a lot bigger so we might not have to again.
-                output.addByteVector(IsoFreeSpaceBox.isoFreeSpaceBox_fromPadding(2048).render());
+                output.addByteVector(IsoFreeSpaceBox.fromPadding(2048).render());
             }
         }
 

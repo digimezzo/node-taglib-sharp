@@ -12,7 +12,7 @@ export class IsoChunkLargeOffsetBox extends FullBox {
     /**
      * The offset table contained in the current instance.
      */
-    private _offsets: bigint[];
+    private _offsets: number[];
 
     public constructor() {
         super();
@@ -32,10 +32,10 @@ export class IsoChunkLargeOffsetBox extends FullBox {
 
         const box_data: ByteVector = file.readBlock(isoAudioSampleEntry.dataSize);
 
-        isoAudioSampleEntry._offsets = [BigInt(box_data.subarray(0, 4).toUint())]; // TODO: not sure if this conversion is OK (re-check original code)
+        isoAudioSampleEntry._offsets = [box_data.subarray(0, 4).toUint()];
 
         for (let i = 0; i < isoAudioSampleEntry._offsets.length; i++) {
-            isoAudioSampleEntry._offsets[i] = box_data.subarray(4 + i * 8, 8).toUlong();
+            isoAudioSampleEntry._offsets[i] = Number(box_data.subarray(4 + i * 8, 8).toUlong());
         }
 
         return isoAudioSampleEntry;
@@ -56,7 +56,7 @@ export class IsoChunkLargeOffsetBox extends FullBox {
     /**
      * Gets the offset table contained in the current instance.
      */
-    public get offsets(): bigint[] {
+    public get offsets(): number[] {
         return this._offsets;
     }
 
@@ -68,7 +68,7 @@ export class IsoChunkLargeOffsetBox extends FullBox {
      * @param after A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-    public overwrite(file: File, sizeDifference: bigint, after: bigint): void {
+    public overwrite(file: File, sizeDifference: number, after: number): void {
         Guards.notNullOrUndefined(file, "file");
 
         file.insert(this.renderUsingSizeDifference(sizeDifference, after), this.header.position, this.size);
@@ -80,7 +80,7 @@ export class IsoChunkLargeOffsetBox extends FullBox {
      * @param after  A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-    public renderUsingSizeDifference(sizeDifference: bigint, after: bigint): ByteVector {
+    public renderUsingSizeDifference(sizeDifference: number, after: number): ByteVector {
         for (let i = 0; i < this.offsets.length; i++) {
             if (this.offsets[i] >= after) {
                 this.offsets[i] = this.offsets[i] + sizeDifference;

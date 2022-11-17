@@ -69,7 +69,7 @@ export class IsoChunkOffsetBox extends FullBox {
      * @param after A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-    public overwrite(file: File, sizeDifference: bigint, after: bigint): void {
+    public overwrite(file: File, sizeDifference: number, after: number): void {
         Guards.notNullOrUndefined(file, "file");
 
         file.insert(this.renderUsingSizeDifference(sizeDifference, after), this.header.position, this.size);
@@ -81,7 +81,7 @@ export class IsoChunkOffsetBox extends FullBox {
      * @param after  A value containing the position in the file after which offsets will be invalidated. If an
      * offset is before this point, it won't be updated.
      */
-    public renderUsingSizeDifference(sizeDifference: bigint, after: bigint): ByteVector {
+    public renderUsingSizeDifference(sizeDifference: number, after: number): ByteVector {
         for (let i = 0; i < this.offsets.length; i++) {
             if (this.offsets[i] >= after) {
                 this.offsets[i] = this.offsets[i] + Number(sizeDifference);

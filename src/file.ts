@@ -1,10 +1,10 @@
-import {ByteVector} from "./byteVector";
-import {IFileAbstraction, LocalFileAbstraction} from "./fileAbstraction";
-import {IDisposable} from "./interfaces";
-import {Properties} from "./properties";
-import {IStream, SeekOrigin} from "./stream";
-import {Tag, TagTypes} from "./tag";
-import {FileUtils, Guards} from "./utils";
+import { ByteVector } from "./byteVector";
+import { IFileAbstraction, LocalFileAbstraction } from "./fileAbstraction";
+import { IDisposable } from "./interfaces";
+import { Properties } from "./properties";
+import { IStream, SeekOrigin } from "./stream";
+import { Tag, TagTypes } from "./tag";
+import { FileUtils, Guards } from "./utils";
 
 /**
  * Specifies the options to use when reading the media. Can be treated as flags.
@@ -27,7 +27,7 @@ export enum ReadStyle {
      * loading picture content when reading the tag. Picture will be read lazily, when the picture
      * content is accessed.
      */
-    PictureLazy = 4
+    PictureLazy = 4,
 }
 
 /**
@@ -47,7 +47,7 @@ export enum FileAccessMode {
     /**
      * The file is closed for both read and write operations
      */
-    Closed
+    Closed,
 }
 
 /**
@@ -84,7 +84,7 @@ export abstract class File implements IDisposable {
     // #region Member Variables
 
     private static readonly BUFFER_SIZE: number = 1024;
-    private static _fileTypes: {[mimeType: string]: FileTypeConstructor} = {};
+    private static _fileTypes: { [mimeType: string]: FileTypeConstructor } = {};
     private static _fileTypeResolvers: FileTypeResolver[] = [];
 
     // @TODO: Remove protected member variables
@@ -99,9 +99,7 @@ export abstract class File implements IDisposable {
 
     protected constructor(file: IFileAbstraction | string) {
         Guards.truthy(file, "file");
-        this._fileAbstraction = typeof(file) === "string"
-            ? <IFileAbstraction> new LocalFileAbstraction(file)
-            : file;
+        this._fileAbstraction = typeof file === "string" ? <IFileAbstraction>new LocalFileAbstraction(file) : file;
     }
 
     /**
@@ -132,11 +130,7 @@ export abstract class File implements IDisposable {
      *     from the new instance. If omitted {@link ReadStyle.Average} is used.
      * @returns New instance of {@link File} as read from the specified path.
      */
-    public static createFromPath(
-        filePath: string,
-        mimeType?: string,
-        propertiesStyle: ReadStyle = ReadStyle.Average
-    ): File {
+    public static createFromPath(filePath: string, mimeType?: string, propertiesStyle: ReadStyle = ReadStyle.Average): File {
         return File.createInternal(new LocalFileAbstraction(filePath), mimeType, propertiesStyle);
     }
 
@@ -170,45 +164,68 @@ export abstract class File implements IDisposable {
     /**
      * Gets the buffer size to use when reading large blocks of data
      */
-    public static get bufferSize(): number { return File.BUFFER_SIZE; }
+    public static get bufferSize(): number {
+        return File.BUFFER_SIZE;
+    }
 
     /**
      * Reasons for which this file is marked as corrupt.
      */
-    public get corruptionReasons(): string[] { return this._corruptionReasons; }
+    public get corruptionReasons(): string[] {
+        return this._corruptionReasons;
+    }
 
     /**
      * Gets the {@link IFileAbstraction} representing the file.
      */
-    public get fileAbstraction(): IFileAbstraction { return this._fileAbstraction; }
+    public get fileAbstraction(): IFileAbstraction {
+        return this._fileAbstraction;
+    }
 
     /**
      * Shortcut property to determine if a file has tags in memory.
      * NOTE: Just because `tag !== undefined` does not mean there are tags in memory.
      */
-    public get hasTags(): boolean { return this.tagTypes !== TagTypes.None; }
+    public get hasTags(): boolean {
+        return this.tagTypes !== TagTypes.None;
+    }
 
     /**
      * Indicates whether or not this file may be corrupt. Files with unknown corruptions should not
      * be written.
      */
-    public get isPossiblyCorrupt(): boolean { return this._corruptionReasons && this._corruptionReasons.length > 0; }
+    public get isPossiblyCorrupt(): boolean {
+        return this._corruptionReasons && this._corruptionReasons.length > 0;
+    }
 
     /**
      * Indicates whether or not tags can be written back to the current file.
      */
-    public get isWritable(): boolean { return !this.isPossiblyCorrupt; }
+    public get isWritable(): boolean {
+        return !this.isPossiblyCorrupt;
+    }
+
+    /**
+     * Gets the seek position in the internal stream used by the current instance.
+     */
+    public get tell(): number {
+        return this.mode === FileAccessMode.Closed ? 0 : this._fileStream.position;
+    }
 
     /**
      * Gets the length of the file represented by the current instance. Value will be 0 if the file
      * is not open for reading;
      */
-    public get length(): number { return this.mode === FileAccessMode.Closed ? 0 : this._fileStream.length; }
+    public get length(): number {
+        return this.mode === FileAccessMode.Closed ? 0 : this._fileStream.length;
+    }
 
     /**
      * Gets the MimeType of the file as determined during creation of the instance.
      */
-    public get mimeType(): string { return this._mimeType; }
+    public get mimeType(): string {
+        return this._mimeType;
+    }
 
     /**
      * Gets the file access mode in use by the current instance.
@@ -257,13 +274,17 @@ export abstract class File implements IDisposable {
     /**
      * Gets the name of the file as stored in its file abstraction.
      */
-    public get name(): string { return this._fileAbstraction.name; }
+    public get name(): string {
+        return this._fileAbstraction.name;
+    }
 
     /**
      * Gets the seek position in the internal stream used by the current instance. Value will be 0
      * if the file is not open for reading
      */
-    public get position(): number { return this.mode === FileAccessMode.Closed ? 0 : this._fileStream.position; }
+    public get position(): number {
+        return this.mode === FileAccessMode.Closed ? 0 : this._fileStream.position;
+    }
 
     /**
      * Gets the media properties of the file represented by the current instance.
@@ -281,13 +302,19 @@ export abstract class File implements IDisposable {
     /**
      * Gets the tag types contained in the current instance.
      */
-    public get tagTypes(): TagTypes { return !this.tag ? TagTypes.None : this.tag.tagTypes; }
+    public get tagTypes(): TagTypes {
+        return !this.tag ? TagTypes.None : this.tag.tagTypes;
+    }
 
     /**
      * Gets the tag types contained in the physical file represented by the current instance.
      */
-    public get tagTypesOnDisk(): TagTypes { return this._tagTypesOnDisk; }
-    protected set tagTypesOnDisk(value: TagTypes) { this._tagTypesOnDisk = value; }
+    public get tagTypesOnDisk(): TagTypes {
+        return this._tagTypesOnDisk;
+    }
+    protected set tagTypesOnDisk(value: TagTypes) {
+        this._tagTypesOnDisk = value;
+    }
 
     // #endregion
 

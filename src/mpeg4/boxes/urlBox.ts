@@ -5,7 +5,7 @@ import { Mpeg4Box } from "../mpeg4Box";
 import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
 import { IsoHandlerBox } from "./isoHandlerBox";
 
-export class UnknownBox extends Mpeg4Box {
+export class UrlBox extends Mpeg4Box {
     /**
      * Contains the box's data.
      */
@@ -16,22 +16,22 @@ export class UnknownBox extends Mpeg4Box {
     }
 
     /**
-     * Constructs and initializes a new instance of @see UnknownBox with a provided header and handler
+     *  Constructs and initializes a new instance of @see UrlBox with a provided header and handler
      * by reading the contents from a specified file.
      * @param header A @see Mpeg4BoxHeader object containing the header to use for the new instance.
      * @param file A @see File object to read the contents of the box from.
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
-     * @returns A new instance of @see UnknownBox
+     * @returns A new instance of @see UrlBox
      */
-    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): UnknownBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): UrlBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
-        const unknownBox: UnknownBox = base as UnknownBox;
+        const urlBox: UrlBox = base as UrlBox;
 
-        unknownBox._data = file.readBlock(unknownBox.dataSize > 0 ? unknownBox.dataSize : 0);
+        urlBox._data = urlBox.loadData(file);
 
-        return unknownBox;
+        return urlBox;
     }
 
     /**

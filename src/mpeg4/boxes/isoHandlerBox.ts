@@ -57,7 +57,7 @@ export class IsoHandlerBox extends FullBox {
      * @param name An object specifying the handler name.
      * @returns A new instance of @see IsoHandlerBox
      */
-    public static fromHandlerTypeAndName(handlerType: ByteVector, name: string): IsoHandlerBox {
+    public static fromHandlerTypeAndHandlerName(handlerType: ByteVector, name: string): IsoHandlerBox {
         Guards.notNullOrUndefined(handlerType, "handlerType");
 
         if (handlerType.length < 4) {

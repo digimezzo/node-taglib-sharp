@@ -25,10 +25,10 @@ export class IsoSampleEntry extends Mpeg4Box {
     public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): IsoSampleEntry {
         Guards.notNullOrUndefined(file, "file");
 
-        const box: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
-        file.seek(box.dataPosition + 6);
+        const base: Mpeg4Box = Mpeg4Box.fromHeaderAndHandler(header, handler);
+        file.seek(base.dataPosition + 6);
 
-        const isoSampleEntry: IsoSampleEntry = box as IsoSampleEntry;
+        const isoSampleEntry: IsoSampleEntry = base as IsoSampleEntry;
         isoSampleEntry._dataReferenceIndex = file.readBlock(2).toUshort();
 
         return isoSampleEntry;
@@ -48,9 +48,5 @@ export class IsoSampleEntry extends Mpeg4Box {
      */
     public get dataReferenceIndex(): number {
         return this._dataReferenceIndex;
-    }
-
-    private set dataReferenceIndex(v: number) {
-        this._dataReferenceIndex = v;
     }
 }

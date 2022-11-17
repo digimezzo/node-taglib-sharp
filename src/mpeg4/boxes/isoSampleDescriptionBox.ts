@@ -20,6 +20,10 @@ export class IsoSampleDescriptionBox extends FullBox {
      */
     private _internalChildren: Mpeg4Box[];
 
+    public constructor() {
+        super();
+    }
+
     /**
      * Constructs and initializes a new instance of @see IsoSampleDescriptionBox with a provided header
      * and handler by reading the contents from a specified file.
@@ -28,7 +32,7 @@ export class IsoSampleDescriptionBox extends FullBox {
      * @param handler A @see IsoHandlerBox object containing the handler that applies to the new instance.
      * @returns A new instance of @see IsoSampleDescriptionBox
      */
-    public fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): IsoSampleDescriptionBox {
+    public static fromHeaderFileAndHandler(header: Mpeg4BoxHeader, file: File, handler: IsoHandlerBox): IsoSampleDescriptionBox {
         Guards.notNullOrUndefined(file, "file");
 
         const base: FullBox = FullBox.fromHeaderFileAndHandler(header, file, handler);

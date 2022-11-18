@@ -8,7 +8,7 @@ import { IsoHandlerBox } from "./isoHandlerBox";
 /**
  * Specifies the type of data contained in a box.
  */
-export enum FlagType {
+export enum AppleDataBoxFlagType {
     /**
      * The box contains UTF-8 text.
      */
@@ -105,10 +105,10 @@ export class AppleDataBox extends FullBox {
      * Gets and sets the text contained in the current instance.
      */
     public get text(): string {
-        return (this.flags & (<number>FlagType.ContainsText)) !== 0 ? this.data.toString(StringType.UTF8) : undefined;
+        return (this.flags & (<number>AppleDataBoxFlagType.ContainsText)) !== 0 ? this.data.toString(StringType.UTF8) : undefined;
     }
     public set text(v: string) {
-        this.flags = <number>FlagType.ContainsText;
+        this.flags = <number>AppleDataBoxFlagType.ContainsText;
         this.data = ByteVector.fromString(v, StringType.UTF8);
     }
 

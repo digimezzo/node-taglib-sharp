@@ -25,7 +25,7 @@ export class Guards {
     }
 
     public static byte(value: number, name: string): void {
-        if (!Number.isSafeInteger(value) || value < 0 || value > 0xFF) {
+        if (!Number.isSafeInteger(value) || value < 0 || value > 0xff) {
             throw new Error(`Argument out of range: ${name} must be a safe, positive, 8-bit integer`);
         }
     }
@@ -103,7 +103,7 @@ export class Guards {
         }
     }
 
-    public static truthy(value: object|string, name: string): void {
+    public static truthy(value: object | string, name: string): void {
         if (!value) {
             throw new Error(`Argument null: ${name} was not provided`);
         }
@@ -183,9 +183,7 @@ export class NumberUtils {
     }
 
     public static hasFlag(haystack: number, needle: number, strict: boolean = false): boolean {
-        return strict
-            ? (haystack & needle) === needle
-            : (haystack & needle) !== 0;
+        return strict ? (haystack & needle) === needle : (haystack & needle) !== 0;
     }
 
     /**
@@ -202,9 +200,9 @@ export class NumberUtils {
      * Converts .NET DateTime ticks (100 nanosecond units) into milliseconds
      * @param ticks 100 nanosecond ticks to convert
      */
-    public static ticksToMilli(ticks: bigint|number): number {
+    public static ticksToMilli(ticks: bigint | number): number {
         // Ticks are 100 nanosecond units
-        return typeof(ticks) === "number"
+        return typeof ticks === "number"
             ? ticks / NumberUtils.TICKS_PER_MILLISECOND_NUM
             : Number(ticks / NumberUtils.TICKS_PER_MILLISECOND_BIG);
     }
@@ -224,7 +222,7 @@ export class NumberUtils {
      * @param numbers Operands to bitwise or together
      * @returns Number (x | y | ...) >>> 0
      */
-    public static uintOr(... numbers: number[]): number {
+    public static uintOr(...numbers: number[]): number {
         return numbers.reduce((acc, cur) => (acc | cur) >>> 0, 0);
     }
 
@@ -265,7 +263,7 @@ export class NumberUtils {
     public static convertFromIeeeExtended(bytes: ByteVector): number {
         let f: number;
 
-        let exponent = NumberUtils.uintLShift(NumberUtils.uintAnd(bytes.get(0), 0x7F), 8);
+        let exponent = NumberUtils.uintLShift(NumberUtils.uintAnd(bytes.get(0), 0x7f), 8);
         exponent = NumberUtils.uintOr(exponent, bytes.get(1));
 
         let hiMantissa = NumberUtils.uintLShift(bytes.get(2), 24);
@@ -281,11 +279,11 @@ export class NumberUtils {
             return 0;
         }
 
-        if (exponent === 0x7FFF) {
+        if (exponent === 0x7fff) {
             f = Number.POSITIVE_INFINITY;
         } else {
             exponent -= 16383;
-            f = NumberUtils.ldexp(hiMantissa, exponent -= 31);
+            f = NumberUtils.ldexp(hiMantissa, (exponent -= 31));
             f += NumberUtils.ldexp(loMantissa, exponent - 32);
         }
 
@@ -311,5 +309,13 @@ export class StringUtils {
             length--;
         }
         return length;
+    }
+
+    public static isNullOrEmpty(stringToCheck: string): boolean {
+        if (stringToCheck === null || stringToCheck === undefined || stringToCheck === "") {
+            return true;
+        }
+
+        return false;
     }
 }

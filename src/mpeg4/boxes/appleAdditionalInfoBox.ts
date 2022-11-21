@@ -36,13 +36,13 @@ export class AppleAdditionalInfoBox extends FullBox {
 
     /**
      * Constructs and initializes a new instance of @see FullBox with a provided header, version, and flags.
-     * @param header A @see Mpeg4BoxHeader object containing the header to use for the new instance.
+     * @param type A @see Mpeg4BoxHeader object containing the header to use for the new instance.
      * @param version A value containing the version of the new instance.
      * @param flags A value containing the flags for the new instance.
      * @returns A new instance of @see FullBox.
      */
-    protected static fromHeaderVersionAndFlags(header: Mpeg4BoxHeader, version: number, flags: number): AppleAdditionalInfoBox {
-        const base: FullBox = FullBox.fromHeaderVersionAndFlags(header, version, flags);
+    public static fromTypeVersionAndFlags(type: ByteVector, version: number, flags: number): AppleAdditionalInfoBox {
+        const base: FullBox = FullBox.fromTypeVersionAndFlags(type, version, flags);
         const appleAdditionalInfoBox: AppleAdditionalInfoBox = base as AppleAdditionalInfoBox;
 
         return appleAdditionalInfoBox;

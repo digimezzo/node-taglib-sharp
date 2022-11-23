@@ -293,6 +293,23 @@ export class NumberUtils {
             return f;
         }
     }
+
+    /**
+     * Tries to parse a given string value to an integer number
+     * @param stringValue The string value to try to parse
+     * @param returnValue The parsed value if parsing was successful
+     * @returns True if parsing was successful, false if parsing failed.
+     */
+    public static tryParseInt(stringValue: string, returnValue: number): boolean {
+        let parsedValue = parseInt(stringValue, 10);
+
+        if (!isNaN(parsedValue)) {
+            returnValue = parsedValue;
+            return true;
+        }
+
+        return false;
+    }
 }
 
 export class StringUtils {
@@ -309,13 +326,5 @@ export class StringUtils {
             length--;
         }
         return length;
-    }
-
-    public static isNullOrEmpty(stringToCheck: string): boolean {
-        if (stringToCheck === null || stringToCheck === undefined || stringToCheck === "") {
-            return true;
-        }
-
-        return false;
     }
 }

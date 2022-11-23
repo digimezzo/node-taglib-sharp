@@ -135,7 +135,7 @@ export class Mpeg4BoxHeader {
             header._boxSize = data.subarray(offset, 8).toUint();
 
             // UUID has a special header with 16 extra bytes.
-            if (header.boxType === Mpeg4BoxType.uuid) {
+            if (header.boxType === Mpeg4BoxType.Uuid) {
                 if (data.length < 16 + offset) {
                     throw new Error("Not enough data in box header.");
                 }

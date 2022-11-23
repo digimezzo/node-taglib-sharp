@@ -14,6 +14,14 @@ import { Mpeg4BoxType } from "./mpeg4BoxType";
 
 export class AppleTag extends Tag {
     /**
+     * Gets the size of the tag in bytes on disk as it was read from disk.
+     */
+    public get sizeOnDisk(): number {
+        // TODO: no idea what to do here. This isn't in the original implementation.
+        return 0;
+    }
+
+    /**
      * Contains the ISO meta box in which that tag will be stored.
      */
     private readonly _meta_box: IsoMetaBox;

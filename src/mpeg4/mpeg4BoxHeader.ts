@@ -103,7 +103,7 @@ export class Mpeg4BoxHeader {
      * @param position A value specifying the seek position in File at which to start reading.
      * @returns A new instance of @see Mpeg4BoxHeader by reading it from a specified seek position in a specified file.
      */
-    public static fromFile(file: File, position: number): Mpeg4BoxHeader {
+    public static fromFileAndPosition(file: File, position: number): Mpeg4BoxHeader {
         Guards.notNullOrUndefined(file, "file");
 
         const header = new Mpeg4BoxHeader();
@@ -162,7 +162,7 @@ export class Mpeg4BoxHeader {
      * @returns A new instance of Mpeg4BoxHeader with a specified box type.
      */
     public static fromType(type: ByteVector): Mpeg4BoxHeader {
-        return Mpeg4BoxHeader.fromTypes(type, undefined);
+        return Mpeg4BoxHeader.fromTypeAndExtendedType(type, undefined);
     }
 
     /**
@@ -171,7 +171,7 @@ export class Mpeg4BoxHeader {
      * @param extendedType A @see ByteVector object containing the four byte box type.
      * @returns A new instance of @see Mpeg4BoxHeader with a specified box type and optionally extended type.
      */
-    public static fromTypes(type: ByteVector, extendedType: ByteVector): Mpeg4BoxHeader {
+    public static fromTypeAndExtendedType(type: ByteVector, extendedType: ByteVector): Mpeg4BoxHeader {
         const header = new Mpeg4BoxHeader();
         header._position = -1;
         header.box = undefined;

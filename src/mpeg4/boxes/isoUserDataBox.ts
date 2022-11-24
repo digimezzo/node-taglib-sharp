@@ -60,5 +60,5 @@ export class IsoUserDataBox extends Mpeg4Box {
     /**
      *  Gets the box headers for the current "udta" box and all parent boxes up to the top of the file.
      */
-    public parentTree: Mpeg4Box[];
+    public parentTree: Mpeg4BoxHeader[];
 }

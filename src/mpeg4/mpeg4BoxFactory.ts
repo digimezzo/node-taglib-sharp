@@ -130,7 +130,7 @@ export class Mpeg4BoxFactory {
         handler: IsoHandlerBox,
         index: number
     ): Mpeg4Box {
-        const header: Mpeg4BoxHeader = Mpeg4BoxHeader.fromFile(file, position);
+        const header: Mpeg4BoxHeader = Mpeg4BoxHeader.fromFileAndPosition(file, position);
 
         return Mpeg4BoxFactory.createBoxFromFileHeaderParentHandlerAndIndex(file, header, parent, handler, index);
     }

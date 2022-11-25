@@ -1,8 +1,8 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * Descriptor Tags
@@ -63,7 +63,7 @@ export enum DescriptorTag {
  * This class extends @see FullBox to provide an implementation of an Apple ElementaryStreamDescriptor.
  * This box may appear as a child of a @see IsoAudioSampleEntry and provided further information about an audio stream.
  */
-export class AppleElementaryStreamDescriptor extends FullBox {
+export default class AppleElementaryStreamDescriptor extends FullBox {
     /**
      * The ES_ID of another elementary stream on which this elementary stream depends
      */

@@ -1,15 +1,15 @@
 import { File } from "../../file";
 import { IVideoCodec, MediaTypes } from "../../properties";
 import { Guards } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
-import { IsoSampleEntry } from "./isoSampleEntry";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
+import IsoSampleEntry from "./isoSampleEntry";
 
 /**
  * This class extends @see IsoSampleEntry and implements @see IVideoCodec to provide an implementation of a
  * ISO/IEC 14496-12 VisualSampleEntry and support for reading MPEG-4 video properties.
  */
-export class IsoVisualSampleEntry extends IsoSampleEntry implements IVideoCodec {
+export default class IsoVisualSampleEntry extends IsoSampleEntry implements IVideoCodec {
     /**
      * Contains the width of the visual.
      */

@@ -1,11 +1,11 @@
 import { ByteVector, StringType } from "../byteVector";
-import { AppleTag } from "./appleTag";
+import AppleTag from "./appleTag";
 
 /**
  * Provides references to different box types used by the library. This class is used to severely reduce the number
  * of times these types are created in @see AppleTag, greatly improving the speed at which warm files are read.
  */
-export class Mpeg4BoxType {
+export default class Mpeg4BoxType {
     public static readonly Aart = ByteVector.fromString("aART", StringType.UTF8).makeReadOnly();
     public static readonly Alb = AppleTag.fixId(ByteVector.fromString("alb", StringType.UTF8)).makeReadOnly();
     public static readonly Art = AppleTag.fixId(ByteVector.fromString("ART", StringType.UTF8)).makeReadOnly();

@@ -1,14 +1,14 @@
 import { ByteVector } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 MovieHeaderBox.
  */
-export class IsoMovieHeaderBox extends FullBox {
+export default class IsoMovieHeaderBox extends FullBox {
     /**
      * The ID of the next track in the movie represented by the current instance.
      */

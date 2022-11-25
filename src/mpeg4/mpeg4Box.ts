@@ -1,16 +1,16 @@
 import { ByteVector } from "../byteVector";
 import { File } from "../file";
 import { Guards } from "../utils";
-import { IsoFreeSpaceBox } from "./boxes/isoFreeSpaceBox";
-import { IsoHandlerBox } from "./boxes/isoHandlerBox";
-import { Mpeg4BoxFactory } from "./mpeg4BoxFactory";
-import { Mpeg4BoxHeader } from "./mpeg4BoxHeader";
-import { Mpeg4BoxType } from "./mpeg4BoxType";
+import IsoFreeSpaceBox from "./boxes/isoFreeSpaceBox";
+import IsoHandlerBox from "./boxes/isoHandlerBox";
+import Mpeg4BoxFactory from "./mpeg4BoxFactory";
+import Mpeg4BoxHeader from "./mpeg4BoxHeader";
+import Mpeg4BoxType from "./mpeg4BoxType";
 
 /**
  *  Provides a generic implementation of a ISO/IEC 14496-12 box.
  */
-export class Mpeg4Box {
+export default class Mpeg4Box {
     /**
      * Contains the box header.
      */

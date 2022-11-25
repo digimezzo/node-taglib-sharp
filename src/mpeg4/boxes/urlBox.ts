@@ -1,11 +1,11 @@
 import { ByteVector } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
 
-export class UrlBox extends Mpeg4Box {
+export default class UrlBox extends Mpeg4Box {
     /**
      * Contains the box's data.
      */

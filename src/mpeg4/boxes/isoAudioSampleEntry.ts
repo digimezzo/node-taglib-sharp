@@ -2,17 +2,17 @@ import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { IAudioCodec, MediaTypes } from "../../properties";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { AppleElementaryStreamDescriptor } from "./appleElementaryStreamDescriptor";
-import { IsoHandlerBox } from "./isoHandlerBox";
-import { IsoSampleEntry } from "./isoSampleEntry";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import AppleElementaryStreamDescriptor from "./appleElementaryStreamDescriptor";
+import IsoHandlerBox from "./isoHandlerBox";
+import IsoSampleEntry from "./isoSampleEntry";
 
 /**
  * This class extends @see IsoSampleEntry and implements @see IAudioCodec to provide an implementation of a 
  * ISO/IEC 14496-12 AudioSampleEntry and support for reading MPEG-4 video properties.
  */
-export class IsoAudioSampleEntry extends IsoSampleEntry implements IAudioCodec {
+export default class IsoAudioSampleEntry extends IsoSampleEntry implements IAudioCodec {
     /**
      * Contains the channel count.
      */

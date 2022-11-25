@@ -1,13 +1,13 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  *  This class extends @see Mpeg4Box to provide an implementation of a ISO/IEC 14496-12 FreeSpaceBox.
  */
-export class IsoFreeSpaceBox extends Mpeg4Box {
+export default class IsoFreeSpaceBox extends Mpeg4Box {
     /**
      * Contains the size of the padding.
      */

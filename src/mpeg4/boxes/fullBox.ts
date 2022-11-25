@@ -1,14 +1,14 @@
 import { ByteVector } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * This class extends @see Mpeg4Box to provide an implementation of a ISO/IEC 14496-12 FullBox.
  */
-export class FullBox extends Mpeg4Box {
+export default class FullBox extends Mpeg4Box {
     /**
      * Gets the position of the data contained in the current instance, after any box specific headers.
      */

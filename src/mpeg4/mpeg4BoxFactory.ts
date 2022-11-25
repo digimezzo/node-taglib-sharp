@@ -1,33 +1,33 @@
 import { ByteVector } from "../byteVector";
 import { File } from "../file";
-import { AppleAdditionalInfoBox } from "./boxes/appleAdditionalInfoBox";
-import { AppleAnnotationBox } from "./boxes/appleAnnotationBox";
-import { AppleDataBox } from "./boxes/appleDataBox";
-import { AppleElementaryStreamDescriptor } from "./boxes/appleElementaryStreamDescriptor";
-import { AppleItemListBox } from "./boxes/appleItemListBox";
-import { IsoAudioSampleEntry } from "./boxes/isoAudioSampleEntry";
-import { IsoChunkLargeOffsetBox } from "./boxes/isoChunkLargeOffsetBox";
-import { IsoChunkOffsetBox } from "./boxes/isoChunkOffsetBox";
-import { IsoFreeSpaceBox } from "./boxes/isoFreeSpaceBox";
-import { IsoHandlerBox } from "./boxes/isoHandlerBox";
-import { IsoMetaBox } from "./boxes/isoMetaBox";
-import { IsoMovieHeaderBox } from "./boxes/isoMovieHeaderBox";
-import { IsoSampleDescriptionBox } from "./boxes/isoSampleDescriptionBox";
-import { IsoSampleEntry } from "./boxes/isoSampleEntry";
-import { IsoSampleTableBox } from "./boxes/isoSampleTableBox";
-import { IsoUserDataBox } from "./boxes/isoUserDataBox";
-import { IsoVisualSampleEntry } from "./boxes/isoVisualSampleEntry";
-import { TextBox } from "./boxes/textBox";
-import { UnknownBox } from "./boxes/unknownBox";
-import { UrlBox } from "./boxes/urlBox";
-import { Mpeg4Box } from "./mpeg4Box";
-import { Mpeg4BoxHeader } from "./mpeg4BoxHeader";
-import { Mpeg4BoxType } from "./mpeg4BoxType";
+import AppleAdditionalInfoBox from "./boxes/appleAdditionalInfoBox";
+import AppleAnnotationBox from "./boxes/appleAnnotationBox";
+import AppleDataBox from "./boxes/appleDataBox";
+import AppleElementaryStreamDescriptor from "./boxes/appleElementaryStreamDescriptor";
+import AppleItemListBox from "./boxes/appleItemListBox";
+import IsoAudioSampleEntry from "./boxes/isoAudioSampleEntry";
+import IsoChunkLargeOffsetBox from "./boxes/isoChunkLargeOffsetBox";
+import IsoChunkOffsetBox from "./boxes/isoChunkOffsetBox";
+import IsoFreeSpaceBox from "./boxes/isoFreeSpaceBox";
+import IsoHandlerBox from "./boxes/isoHandlerBox";
+import IsoMetaBox from "./boxes/isoMetaBox";
+import IsoMovieHeaderBox from "./boxes/isoMovieHeaderBox";
+import IsoSampleDescriptionBox from "./boxes/isoSampleDescriptionBox";
+import IsoSampleEntry from "./boxes/isoSampleEntry";
+import IsoSampleTableBox from "./boxes/isoSampleTableBox";
+import IsoUserDataBox from "./boxes/isoUserDataBox";
+import IsoVisualSampleEntry from "./boxes/isoVisualSampleEntry";
+import TextBox from "./boxes/textBox";
+import UnknownBox from "./boxes/unknownBox";
+import UrlBox from "./boxes/urlBox";
+import Mpeg4Box from "./mpeg4Box";
+import Mpeg4BoxHeader from "./mpeg4BoxHeader";
+import Mpeg4BoxType from "./mpeg4BoxType";
 
 /**
  * This class provides support for reading boxes from a file.
  */
-export class Mpeg4BoxFactory {
+export default class Mpeg4BoxFactory {
     /**
      * Creates a box by reading it from a file given its header, parent header, handler, and index in its parent.
      * @param file A @see File object containing the file to read from.

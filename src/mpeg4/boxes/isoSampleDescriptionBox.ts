@@ -1,14 +1,14 @@
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 SampleDescriptionBox.
  */
-export class IsoSampleDescriptionBox extends FullBox {
+export default class IsoSampleDescriptionBox extends FullBox {
     /**
      * The number of boxes at the beginning of the children that will be stored as @see IsoAudioSampleEntry
      * of @see IsoVisualSampleEntry" objects, depending on the handler.

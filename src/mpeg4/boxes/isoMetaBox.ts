@@ -1,16 +1,16 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * Constructs and initializes a new instance of @see IsoMetaBox with a provided header and
  * handler by reading the contents from a specified file.
  */
-export class IsoMetaBox extends FullBox {
+export default class IsoMetaBox extends FullBox {
     /**
      * The children of the current instance.
      */

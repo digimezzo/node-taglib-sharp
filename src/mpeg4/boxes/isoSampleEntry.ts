@@ -1,10 +1,10 @@
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
 
-export class IsoSampleEntry extends Mpeg4Box {
+export default class IsoSampleEntry extends Mpeg4Box {
     /**
      * The data reference index of the current instance.
      */

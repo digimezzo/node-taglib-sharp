@@ -1,13 +1,13 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
 
 /**
  * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 FullBox.
  */
-export class IsoHandlerBox extends FullBox {
+export default class IsoHandlerBox extends FullBox {
     /**
      * The handler type of the current instance.
      */

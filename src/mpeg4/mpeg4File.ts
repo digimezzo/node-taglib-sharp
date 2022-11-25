@@ -2,19 +2,19 @@ import { File, FileAccessMode, ReadStyle } from "../file";
 import { IFileAbstraction } from "../fileAbstraction";
 import { Properties } from "../properties";
 import { Tag, TagTypes } from "../tag";
-import { AppleTag } from "./appleTag";
-import { IsoAudioSampleEntry } from "./boxes/isoAudioSampleEntry";
-import { IsoMovieHeaderBox } from "./boxes/isoMovieHeaderBox";
-import { IsoUserDataBox } from "./boxes/isoUserDataBox";
-import { IsoVisualSampleEntry } from "./boxes/isoVisualSampleEntry";
-import { Mpeg4BoxType } from "./mpeg4BoxType";
-import { Mpeg4FileParser } from "./mpeg4FileParser";
-import { Mpeg4Tag } from "./mpeg4Tag";
+import AppleTag from "./appleTag";
+import IsoAudioSampleEntry from "./boxes/isoAudioSampleEntry";
+import IsoMovieHeaderBox from "./boxes/isoMovieHeaderBox";
+import IsoUserDataBox from "./boxes/isoUserDataBox";
+import IsoVisualSampleEntry from "./boxes/isoVisualSampleEntry";
+import Mpeg4BoxType from "./mpeg4BoxType";
+import Mpeg4FileParser from "./mpeg4FileParser";
+import Mpeg4Tag from "./mpeg4Tag";
 
 /**
  * Provides tagging and properties support for Mpeg4 files.
  */
-export class Mpeg4File extends File {
+export default class Mpeg4File extends File {
     /**
      * Contains the Apple tag.
      */

@@ -3,16 +3,16 @@ import { Genres } from "..";
 import { ByteVector, StringType } from "../byteVector";
 import { Tag, TagTypes } from "../tag";
 import { Guards, NumberUtils } from "../utils";
-import { AppleAdditionalInfoBox } from "./boxes/appleAdditionalInfoBox";
-import { AppleAnnotationBox } from "./boxes/appleAnnotationBox";
-import { AppleDataBox, AppleDataBoxFlagType } from "./boxes/appleDataBox";
-import { AppleItemListBox } from "./boxes/appleItemListBox";
-import { IsoMetaBox } from "./boxes/isoMetaBox";
-import { IsoUserDataBox } from "./boxes/isoUserDataBox";
-import { Mpeg4Box } from "./mpeg4Box";
-import { Mpeg4BoxType } from "./mpeg4BoxType";
+import AppleAdditionalInfoBox from "./boxes/appleAdditionalInfoBox";
+import AppleAnnotationBox from "./boxes/appleAnnotationBox";
+import AppleDataBox, { AppleDataBoxFlagType } from "./boxes/appleDataBox";
+import AppleItemListBox from "./boxes/appleItemListBox";
+import IsoMetaBox from "./boxes/isoMetaBox";
+import IsoUserDataBox from "./boxes/isoUserDataBox";
+import Mpeg4Box from "./mpeg4Box";
+import Mpeg4BoxType from "./mpeg4BoxType";
 
-export class AppleTag extends Tag {
+export default class AppleTag extends Tag {
     /**
      * Gets the size of the tag in bytes on disk as it was read from disk.
      */

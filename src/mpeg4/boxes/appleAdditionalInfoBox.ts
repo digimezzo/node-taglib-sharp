@@ -1,14 +1,14 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { StringUtils } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  *  This class extends @see FullBox to provide an implementation of an Apple AdditionalInfoBox.
  */
-export class AppleAdditionalInfoBox extends FullBox {
+export default class AppleAdditionalInfoBox extends FullBox {
     /**
      * Contains the box data.
      */

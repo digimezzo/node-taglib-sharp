@@ -1,14 +1,14 @@
 import { ByteVector } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 ChunkOffsetBox.
  */
-export class IsoChunkOffsetBox extends FullBox {
+export default class IsoChunkOffsetBox extends FullBox {
     /**
      * The offset table contained in the current instance.
      */

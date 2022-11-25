@@ -1,9 +1,9 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { FullBox } from "./fullBox";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import FullBox from "./fullBox";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * Specifies the type of data contained in a box.
@@ -43,7 +43,7 @@ export enum AppleDataBoxFlagType {
 /**
  * This class extends @see FullBox to provide an implementation of an Apple DataBox.
  */
-export class AppleDataBox extends FullBox {
+export default class AppleDataBox extends FullBox {
     /**
      * Contains the box data.
      */

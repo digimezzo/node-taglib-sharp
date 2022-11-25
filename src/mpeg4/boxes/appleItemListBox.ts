@@ -1,14 +1,14 @@
 import { ByteVector, StringType } from "../../byteVector";
 import { File } from "../../file";
 import { Guards } from "../../utils";
-import { Mpeg4Box } from "../mpeg4Box";
-import { Mpeg4BoxHeader } from "../mpeg4BoxHeader";
-import { IsoHandlerBox } from "./isoHandlerBox";
+import Mpeg4Box from "../mpeg4Box";
+import Mpeg4BoxHeader from "../mpeg4BoxHeader";
+import IsoHandlerBox from "./isoHandlerBox";
 
 /**
  * This class extends @see Mpeg4Box to provide an implementation of an Apple ItemListBox.
  */
-export class AppleItemListBox extends Mpeg4Box {
+export default class AppleItemListBox extends Mpeg4Box {
     /**
      * The children of the current instance.
      */

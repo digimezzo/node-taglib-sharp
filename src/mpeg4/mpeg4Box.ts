@@ -31,6 +31,8 @@ export default class Mpeg4Box {
      */
     private _children: Mpeg4Box[] = undefined;
 
+    public constructor() {}
+
     /**
      * Constructs and initializes a new instance of @see Mpeg4Box with a specified header and handler.
      * @param header A @see Mpeg4BoxHeader object describing the new instance.
@@ -39,6 +41,9 @@ export default class Mpeg4Box {
      */
     public static fromHeaderAndHandler(header: Mpeg4BoxHeader, handler: IsoHandlerBox): Mpeg4Box {
         const box: Mpeg4Box = new Mpeg4Box();
+        box._header = header;
+        box._dataPosition = header.position + header.headerSize;
+        box._handler = handler;
 
         return box;
     }
@@ -49,9 +54,7 @@ export default class Mpeg4Box {
      * @returns A new instance of @see Mpeg4Box with a specified header.
      */
     public static fromHeader(header: Mpeg4BoxHeader): Mpeg4Box {
-        const box: Mpeg4Box = new Mpeg4Box();
-
-        return this.fromHeaderAndHandler(header, undefined);
+        return Mpeg4Box.fromHeaderAndHandler(header, undefined);
     }
 
     /**
@@ -60,9 +63,7 @@ export default class Mpeg4Box {
      * @returns A new instance of @see Mpeg4Box with a specified box type.
      */
     public static fromType(type: ByteVector): Mpeg4Box {
-        const box: Mpeg4Box = new Mpeg4Box();
-
-        return this.fromHeader(Mpeg4BoxHeader.fromType(type));
+        return Mpeg4Box.fromHeader(Mpeg4BoxHeader.fromType(type));
     }
 
     /**

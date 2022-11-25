@@ -43,7 +43,7 @@ export default class AppleTag extends Tag {
         this._meta_box = box.getChild(Mpeg4BoxType.Meta) as IsoMetaBox;
 
         if (this._meta_box === null && this._meta_box === undefined) {
-            this._meta_box = IsoMetaBox.fromHandlerTypeAndHandlerName(ByteVector.fromString("mdir", StringType.UTF8), null);
+            this._meta_box = IsoMetaBox.fromHandlerTypeAndHandlerName(ByteVector.fromString("mdir", StringType.UTF8), undefined);
             box.addChild(this._meta_box);
         }
 
@@ -251,6 +251,7 @@ export default class AppleTag extends Tag {
             if (
                 box.text !== null &&
                 box.text !== undefined &&
+                // TODO: this is dangerous. Not sure if assignment of value works (Also, what happens if set as "const" instead of "let").
                 (NumberUtils.tryParseInt(box.text, value) ||
                     NumberUtils.tryParseInt(box.text.length > 4 ? box.text.substring(0, 4) : box.text, value))
             ) {
@@ -318,7 +319,7 @@ export default class AppleTag extends Tag {
             return;
         }
 
-        var data = ByteVector.fromUshort(0);
+        const data = ByteVector.fromUshort(0);
         data.addByteVector(ByteVector.fromUshort(localTrack));
         data.addByteVector(ByteVector.fromUshort(v));
         data.addByteVector(ByteVector.fromUshort(0));
@@ -346,7 +347,7 @@ export default class AppleTag extends Tag {
             return;
         }
 
-        var data = ByteVector.fromUshort(0);
+        const data = ByteVector.fromUshort(0);
         data.addByteVector(ByteVector.fromUshort(v));
         data.addByteVector(ByteVector.fromUshort(localCount));
         data.addByteVector(ByteVector.fromUshort(0));
@@ -374,7 +375,7 @@ export default class AppleTag extends Tag {
             return;
         }
 
-        var data = ByteVector.fromUshort(0);
+        const data = ByteVector.fromUshort(0);
         data.addByteVector(ByteVector.fromUshort(localDisc));
         data.addByteVector(ByteVector.fromUshort(v));
         data.addByteVector(ByteVector.fromUshort(0));
@@ -676,6 +677,7 @@ export default class AppleTag extends Tag {
 
         let value: number = 0;
 
+        // TODO: dangerous
         if (NumberUtils.tryParseInt(text, value)) {
             return value;
         }
@@ -694,6 +696,7 @@ export default class AppleTag extends Tag {
         let text: string = this.getDashBox("com.apple.iTunes", "REPLAYGAIN_TRACK_PEAK");
         let value: number = 0;
 
+        // TODO: dangerous
         if (text && NumberUtils.tryParseInt(text, value)) {
             return value;
         }
@@ -721,6 +724,7 @@ export default class AppleTag extends Tag {
 
         let value: number = 0;
 
+        // TODO: dangerous
         if (NumberUtils.tryParseInt(text, value)) {
             return value;
         }
@@ -739,6 +743,7 @@ export default class AppleTag extends Tag {
         let text: string = this.getDashBox("com.apple.iTunes", "REPLAYGAIN_ALBUM_PEAK");
         let value: number = 0;
 
+        // TODO: dangerous
         if (text && NumberUtils.tryParseInt(text, value)) {
             return value;
         }
@@ -892,7 +897,7 @@ export default class AppleTag extends Tag {
      * @returns A @see string[] containing text from all matching boxes.
      */
     public getText(type: ByteVector): string[] {
-        var result: string[] = [];
+        const result: string[] = [];
 
         for (const box of this.dataBoxesFromTypeParams(type)) {
             if (box.text === null || box.text === undefined) {
@@ -978,7 +983,7 @@ export default class AppleTag extends Tag {
      * @param flags A value containing flags to use for the added box.
      */
     public setDataFromTypeDataAndFlags(type: ByteVector, data: ByteVector, flags: number): void {
-        if (data === null || data === undefined || data.length == 0) {
+        if (data === null || data === undefined || data.length === 0) {
             this.clearData(type);
         } else {
             this.setDataFromTypeDataCollectionAndFlags(type, [data], flags);
@@ -1102,7 +1107,7 @@ export default class AppleTag extends Tag {
             amean_box.text = meanstring;
             aname_box.text = namestring;
             adata_box.text = datastring;
-            var whole_box = AppleAnnotationBox.fromType(Mpeg4BoxType.DASH);
+            const whole_box = AppleAnnotationBox.fromType(Mpeg4BoxType.DASH);
             whole_box.addChild(amean_box);
             whole_box.addChild(aname_box);
             whole_box.addChild(adata_box);
@@ -1168,7 +1173,7 @@ export default class AppleTag extends Tag {
      */
     private getDashAtom(meanstring: string, namestring: string): AppleDataBox {
         for (const box of this._ilst_box.children) {
-            if (box.boxType != Mpeg4BoxType.DASH) {
+            if (box.boxType !== Mpeg4BoxType.DASH) {
                 continue;
             }
 
@@ -1203,7 +1208,7 @@ export default class AppleTag extends Tag {
      */
     private getDashAtoms(meanstring: string, namestring: string): AppleDataBox[] {
         for (const box of this._ilst_box.children) {
-            if (box.boxType != Mpeg4BoxType.DASH) {
+            if (box.boxType !== Mpeg4BoxType.DASH) {
                 continue;
             }
 
@@ -1226,8 +1231,8 @@ export default class AppleTag extends Tag {
             }
         }
 
-        // If we haven't returned the found box yet, there isn't one, return null
-        return null;
+        // If we haven't returned the found box yet, there isn't one, return undefined.
+        return undefined;
     }
 
     /**
@@ -1238,7 +1243,7 @@ export default class AppleTag extends Tag {
      */
     private getParentDashBox(meanstring: string, namestring: string): AppleAnnotationBox {
         for (const box of this._ilst_box.children) {
-            if (box.boxType != Mpeg4BoxType.DASH) {
+            if (box.boxType !== Mpeg4BoxType.DASH) {
                 continue;
             }
 
@@ -1261,8 +1266,8 @@ export default class AppleTag extends Tag {
             }
         }
 
-        // If we haven't returned the found box yet, there isn't one, return null.
-        return null;
+        // If we haven't returned the found box yet, there isn't one, return undefined.
+        return undefined;
     }
 
     /**

@@ -131,7 +131,7 @@ export default class Mpeg4BoxHeader {
             }
 
             header._headerSize += 8;
-            offset + 8;
+            offset += 8;
             header._boxSize = data.subarray(offset, 8).toUint();
 
             // UUID has a special header with 16 extra bytes.
@@ -231,17 +231,17 @@ export default class Mpeg4BoxHeader {
      */
     public render(): ByteVector {
         // Enlarge for size if necessary.
-        if ((this._headerSize == 8 || this._headerSize == 24) && this._boxSize > Number.MAX_VALUE) {
+        if ((this._headerSize === 8 || this._headerSize === 24) && this._boxSize > Number.MAX_VALUE) {
             this._headerSize += 8;
             this._boxSize += 8;
         }
 
         // Add the box size and type to the output.
-        const output: ByteVector = ByteVector.fromUint(this._headerSize == 8 || this._headerSize == 24 ? this._boxSize : 1);
+        const output: ByteVector = ByteVector.fromUint(this._headerSize === 8 || this._headerSize === 24 ? this._boxSize : 1);
         output.addByteVector(this.boxType);
 
         // If the box size is 16 or 32, we must have more a large header to append.
-        if (this._headerSize == 16 || this._headerSize == 32) {
+        if (this._headerSize === 16 || this._headerSize === 32) {
             output.addByteVector(ByteVector.fromUlong(this._boxSize));
         }
 

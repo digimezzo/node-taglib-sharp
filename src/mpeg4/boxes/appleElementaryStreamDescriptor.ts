@@ -377,7 +377,7 @@ export default class AppleElementaryStreamDescriptor extends FullBox {
         do {
             b = data.get(offset++);
             length = (<number>(length << 7)) | (<number>(b & 0x7f));
-        } while ((b & 0x80) != 0 && offset <= end); // The Length could be between 1 and 4 bytes for each descriptor
+        } while ((b & 0x80) !== 0 && offset <= end); // The Length could be between 1 and 4 bytes for each descriptor
 
         return length;
     }

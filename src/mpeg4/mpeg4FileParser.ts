@@ -266,7 +266,7 @@ export default class Mpeg4FileParser {
                 this._mdat_end = position + header.totalBoxSize;
             }
 
-            if (header.totalBoxSize == 0) {
+            if (header.totalBoxSize === 0) {
                 break;
             }
         }
@@ -338,7 +338,7 @@ export default class Mpeg4FileParser {
         for (let position = start; position < end; position += header.totalBoxSize) {
             header = Mpeg4BoxHeader.fromFileAndPosition(this._file, position);
 
-            if (header.boxType == Mpeg4BoxType.Moov) {
+            if (header.boxType === Mpeg4BoxType.Moov) {
                 this.parseTagAndPropertiesFromStartEndHandlerAndParents(
                     header.headerSize + position,
                     header.totalBoxSize + position,

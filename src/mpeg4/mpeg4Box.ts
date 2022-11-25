@@ -283,7 +283,13 @@ export class Mpeg4Box {
         this._header.box = this;
 
         while (position < end) {
-            const child: Mpeg4Box = Mpeg4BoxFactory.createBox(file, position, this._header, this.handler, children.length);
+            const child: Mpeg4Box = Mpeg4BoxFactory.createBoxFromFilePositionParentHandlerAndIndex(
+                file,
+                position,
+                this._header,
+                this.handler,
+                children.length
+            );
 
             if (child.size === 0) {
                 break;

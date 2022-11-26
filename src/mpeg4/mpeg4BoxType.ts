@@ -1,5 +1,5 @@
 import { ByteVector, StringType } from "../byteVector";
-import AppleTag from "./appleTag";
+import Mpeg4Utils from "./mpeg4Utils";
 
 /**
  * Provides references to different box types used by the library. This class is used to severely reduce the number
@@ -7,27 +7,27 @@ import AppleTag from "./appleTag";
  */
 export default class Mpeg4BoxType {
     public static readonly Aart = ByteVector.fromString("aART", StringType.UTF8).makeReadOnly();
-    public static readonly Alb = AppleTag.fixId(ByteVector.fromString("alb", StringType.UTF8)).makeReadOnly();
-    public static readonly Art = AppleTag.fixId(ByteVector.fromString("ART", StringType.UTF8)).makeReadOnly();
-    public static readonly Cmt = AppleTag.fixId(ByteVector.fromString("cmt", StringType.UTF8)).makeReadOnly();
+    public static readonly Alb = Mpeg4Utils.fixId(ByteVector.fromString("alb", StringType.UTF8)).makeReadOnly();
+    public static readonly Art = Mpeg4Utils.fixId(ByteVector.fromString("ART", StringType.UTF8)).makeReadOnly();
+    public static readonly Cmt = Mpeg4Utils.fixId(ByteVector.fromString("cmt", StringType.UTF8)).makeReadOnly();
     public static readonly Cond = ByteVector.fromString("cond", StringType.UTF8).makeReadOnly();
     public static readonly Covr = ByteVector.fromString("covr", StringType.UTF8).makeReadOnly();
     public static readonly Co64 = ByteVector.fromString("co64", StringType.UTF8).makeReadOnly();
     public static readonly Cpil = ByteVector.fromString("cpil", StringType.UTF8).makeReadOnly();
     public static readonly Cprt = ByteVector.fromString("cprt", StringType.UTF8).makeReadOnly();
     public static readonly Data = ByteVector.fromString("data", StringType.UTF8).makeReadOnly();
-    public static readonly Day = AppleTag.fixId(ByteVector.fromString("day", StringType.UTF8)).makeReadOnly();
+    public static readonly Day = Mpeg4Utils.fixId(ByteVector.fromString("day", StringType.UTF8)).makeReadOnly();
     public static readonly Desc = ByteVector.fromString("desc", StringType.UTF8).makeReadOnly();
     public static readonly Disk = ByteVector.fromString("disk", StringType.UTF8).makeReadOnly();
     public static readonly Dtag = ByteVector.fromString("dtag", StringType.UTF8).makeReadOnly();
     public static readonly Esds = ByteVector.fromString("esds", StringType.UTF8).makeReadOnly();
     public static readonly Ilst = ByteVector.fromString("ilst", StringType.UTF8).makeReadOnly();
     public static readonly Free = ByteVector.fromString("free", StringType.UTF8).makeReadOnly();
-    public static readonly Gen = AppleTag.fixId(ByteVector.fromString("gen", StringType.UTF8)).makeReadOnly();
+    public static readonly Gen = Mpeg4Utils.fixId(ByteVector.fromString("gen", StringType.UTF8)).makeReadOnly();
     public static readonly Gnre = ByteVector.fromString("gnre", StringType.UTF8).makeReadOnly();
-    public static readonly Grp = AppleTag.fixId(ByteVector.fromString("grp", StringType.UTF8)).makeReadOnly();
+    public static readonly Grp = Mpeg4Utils.fixId(ByteVector.fromString("grp", StringType.UTF8)).makeReadOnly();
     public static readonly Hdlr = ByteVector.fromString("hdlr", StringType.UTF8).makeReadOnly();
-    public static readonly Lyr = AppleTag.fixId(ByteVector.fromString("lyr", StringType.UTF8)).makeReadOnly();
+    public static readonly Lyr = Mpeg4Utils.fixId(ByteVector.fromString("lyr", StringType.UTF8)).makeReadOnly();
     public static readonly Mdat = ByteVector.fromString("mdat", StringType.UTF8).makeReadOnly();
     public static readonly Mdia = ByteVector.fromString("mdia", StringType.UTF8).makeReadOnly();
     public static readonly Meta = ByteVector.fromString("meta", StringType.UTF8).makeReadOnly();
@@ -35,7 +35,7 @@ export default class Mpeg4BoxType {
     public static readonly Minf = ByteVector.fromString("minf", StringType.UTF8).makeReadOnly();
     public static readonly Moov = ByteVector.fromString("moov", StringType.UTF8).makeReadOnly();
     public static readonly Mvhd = ByteVector.fromString("mvhd", StringType.UTF8).makeReadOnly();
-    public static readonly Nam = AppleTag.fixId(ByteVector.fromString("nam", StringType.UTF8)).makeReadOnly();
+    public static readonly Nam = Mpeg4Utils.fixId(ByteVector.fromString("nam", StringType.UTF8)).makeReadOnly();
     public static readonly Name = ByteVector.fromString("name", StringType.UTF8).makeReadOnly(); // "theName" because "name" is reserved
     public static readonly Role = ByteVector.fromString("role", StringType.UTF8).makeReadOnly();
     public static readonly Skip = ByteVector.fromString("skip", StringType.UTF8).makeReadOnly();
@@ -53,9 +53,9 @@ export default class Mpeg4BoxType {
     public static readonly Trak = ByteVector.fromString("trak", StringType.UTF8).makeReadOnly();
     public static readonly Trkn = ByteVector.fromString("trkn", StringType.UTF8).makeReadOnly();
     public static readonly Udta = ByteVector.fromString("udta", StringType.UTF8).makeReadOnly();
-    public static readonly Url = AppleTag.fixId(ByteVector.fromString("url", StringType.UTF8)).makeReadOnly();
+    public static readonly Url = Mpeg4Utils.fixId(ByteVector.fromString("url", StringType.UTF8)).makeReadOnly();
     public static readonly Uuid = ByteVector.fromString("uuid", StringType.UTF8).makeReadOnly();
-    public static readonly Wrt = AppleTag.fixId(ByteVector.fromString("wrt", StringType.UTF8)).makeReadOnly();
+    public static readonly Wrt = Mpeg4Utils.fixId(ByteVector.fromString("wrt", StringType.UTF8)).makeReadOnly();
     public static readonly DASH = ByteVector.fromString("----", StringType.UTF8).makeReadOnly();
 
     // Handler types.

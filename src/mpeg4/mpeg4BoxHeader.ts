@@ -1,7 +1,7 @@
 import { ByteVector, StringType } from "../byteVector";
 import { File } from "../file";
 import { Guards } from "../utils";
-import Mpeg4Box from "./mpeg4Box";
+import { Mpeg4Box } from "./mpeg4Boxes";
 import Mpeg4BoxType from "./mpeg4BoxType";
 
 /**

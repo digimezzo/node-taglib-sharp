@@ -1,26 +1,27 @@
 import { ByteVector } from "../byteVector";
 import { File } from "../file";
-import AppleAdditionalInfoBox from "./boxes/appleAdditionalInfoBox";
-import AppleAnnotationBox from "./boxes/appleAnnotationBox";
-import AppleDataBox from "./boxes/appleDataBox";
-import AppleElementaryStreamDescriptor from "./boxes/appleElementaryStreamDescriptor";
-import AppleItemListBox from "./boxes/appleItemListBox";
-import IsoAudioSampleEntry from "./boxes/isoAudioSampleEntry";
-import IsoChunkLargeOffsetBox from "./boxes/isoChunkLargeOffsetBox";
-import IsoChunkOffsetBox from "./boxes/isoChunkOffsetBox";
-import IsoFreeSpaceBox from "./boxes/isoFreeSpaceBox";
-import IsoHandlerBox from "./boxes/isoHandlerBox";
-import IsoMetaBox from "./boxes/isoMetaBox";
-import IsoMovieHeaderBox from "./boxes/isoMovieHeaderBox";
-import IsoSampleDescriptionBox from "./boxes/isoSampleDescriptionBox";
-import IsoSampleEntry from "./boxes/isoSampleEntry";
-import IsoSampleTableBox from "./boxes/isoSampleTableBox";
-import IsoUserDataBox from "./boxes/isoUserDataBox";
-import IsoVisualSampleEntry from "./boxes/isoVisualSampleEntry";
-import TextBox from "./boxes/textBox";
-import UnknownBox from "./boxes/unknownBox";
-import UrlBox from "./boxes/urlBox";
-import Mpeg4Box from "./mpeg4Box";
+import AppleAnnotationBox, {
+    AppleAdditionalInfoBox,
+    AppleDataBox,
+    AppleElementaryStreamDescriptor,
+    AppleItemListBox,
+    IsoAudioSampleEntry,
+    IsoChunkLargeOffsetBox,
+    IsoChunkOffsetBox,
+    IsoFreeSpaceBox,
+    IsoHandlerBox,
+    IsoMetaBox,
+    IsoMovieHeaderBox,
+    IsoSampleDescriptionBox,
+    IsoSampleEntry,
+    IsoSampleTableBox,
+    IsoUserDataBox,
+    IsoVisualSampleEntry,
+    Mpeg4Box,
+    TextBox,
+    UnknownBox,
+    UrlBox,
+} from "./mpeg4Boxes";
 import Mpeg4BoxHeader from "./mpeg4BoxHeader";
 import Mpeg4BoxType from "./mpeg4BoxType";
 

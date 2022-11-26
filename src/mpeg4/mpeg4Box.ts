@@ -31,7 +31,8 @@ export default class Mpeg4Box {
      */
     private _children: Mpeg4Box[] = undefined;
 
-    public constructor() {}
+    /** Protected to only allow construction from derived classes via static functions */
+    protected constructor() {}
 
     /**
      * Constructs and initializes a new instance of @see Mpeg4Box with a specified header and handler.

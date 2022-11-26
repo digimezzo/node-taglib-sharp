@@ -26,6 +26,11 @@ export default class FullBox extends Mpeg4Box {
      */
     public flags: number;
 
+    /** Protected to only allow construction from derived classes via static functions */
+    protected constructor() {
+        super();
+    }
+
     /**
      * Constructs and initializes a new instance of @see FullBox with a provided header and handler
      * by reading the contents from a specified file.

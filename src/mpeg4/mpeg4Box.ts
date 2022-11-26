@@ -3,9 +3,9 @@ import { File } from "../file";
 import { Guards } from "../utils";
 import IsoFreeSpaceBox from "./boxes/isoFreeSpaceBox";
 import IsoHandlerBox from "./boxes/isoHandlerBox";
+import Mpeg4BoxFactory from "./mpeg4BoxFactory";
 import Mpeg4BoxHeader from "./mpeg4BoxHeader";
 import Mpeg4BoxType from "./mpeg4BoxType";
-import Mpeg4Utils from "./mpeg4Utils";
 
 /**
  *  Provides a generic implementation of a ISO/IEC 14496-12 box.
@@ -285,7 +285,7 @@ export default class Mpeg4Box {
         this._header.box = this;
 
         while (position < end) {
-            const child: Mpeg4Box = Mpeg4Utils.createBoxFromFilePositionParentHandlerAndIndex(
+            const child: Mpeg4Box = Mpeg4BoxFactory.createBoxFromFilePositionParentHandlerAndIndex(
                 file,
                 position,
                 this._header,

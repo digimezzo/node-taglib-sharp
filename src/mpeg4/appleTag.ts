@@ -11,6 +11,7 @@ import IsoMetaBox from "./boxes/isoMetaBox";
 import IsoUserDataBox from "./boxes/isoUserDataBox";
 import Mpeg4Box from "./mpeg4Box";
 import Mpeg4BoxType from "./mpeg4BoxType";
+import Mpeg4Utils from "./mpeg4Utils";
 
 export default class AppleTag extends Tag {
     /**
@@ -820,7 +821,7 @@ export default class AppleTag extends Tag {
         // children and add any data box.
         for (const box of this._ilst_box.children) {
             for (const byteVector of types) {
-                if (AppleTag.fixId(byteVector).makeReadOnly() !== box.boxType) {
+                if (Mpeg4Utils.fixId(byteVector).makeReadOnly() !== box.boxType) {
                     continue;
                 }
 
@@ -919,7 +920,7 @@ export default class AppleTag extends Tag {
      */
     public setDataFromTypeAndBoxes(type: ByteVector, boxes: AppleDataBox[]): void {
         // Fix the type.
-        type = AppleTag.fixId(type).makeReadOnly();
+        type = Mpeg4Utils.fixId(type).makeReadOnly();
 
         let added: boolean = false;
 
@@ -998,7 +999,7 @@ export default class AppleTag extends Tag {
     public setTextFromTypeAndTextCollection(type: ByteVector, textCollection: string[]): void {
         // Remove empty data and return.
         if (textCollection === null || textCollection === undefined) {
-            this._ilst_box.removeChildByType(AppleTag.fixId(type).makeReadOnly());
+            this._ilst_box.removeChildByType(Mpeg4Utils.fixId(type).makeReadOnly());
 
             return;
         }
@@ -1014,7 +1015,7 @@ export default class AppleTag extends Tag {
     public setTextFromTypeAndText(type: ByteVector, text: string): void {
         // Remove empty data and return.
         if (!text) {
-            this._ilst_box.removeChildByType(AppleTag.fixId(type).makeReadOnly());
+            this._ilst_box.removeChildByType(Mpeg4Utils.fixId(type).makeReadOnly());
 
             return;
         }
@@ -1029,7 +1030,7 @@ export default class AppleTag extends Tag {
      * @param type A @see ByteVector object containing the type of box to remove from the current instance.
      */
     public clearData(type: ByteVector): void {
-        this._ilst_box.removeChildByType(AppleTag.fixId(type).makeReadOnly());
+        this._ilst_box.removeChildByType(Mpeg4Utils.fixId(type).makeReadOnly());
     }
 
     /**
@@ -1267,23 +1268,6 @@ export default class AppleTag extends Tag {
         }
 
         // If we haven't returned the found box yet, there isn't one, return undefined.
-        return undefined;
-    }
-
-    /**
-     * Converts the provided ID into a readonly ID and fixes a 3 byte ID.
-     * @param id A <see cref="ByteVector" /> object containing an ID to fix.
-     * @returns A fixed @see ByteVector or undefined if the ID could not be fixed.
-     */
-    public static fixId(id: ByteVector): ByteVector {
-        if (id.length === 4) {
-            return id;
-        }
-
-        if (id.length === 3) {
-            return ByteVector.fromByteArray([0xa9, id.get(0), id.get(1), id.get(2)]);
-        }
-
         return undefined;
     }
 }

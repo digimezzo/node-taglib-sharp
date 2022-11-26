@@ -1,4 +1,4 @@
-import { ByteVector, StringType } from "../byteVector";
+import { StringType } from "../byteVector";
 import { File } from "../file";
 import { Guards } from "../utils";
 import { IsoAudioSampleEntry, IsoHandlerBox, IsoMovieHeaderBox, IsoUserDataBox, IsoVisualSampleEntry, Mpeg4Box } from "./mpeg4Boxes";
@@ -71,7 +71,7 @@ export default class Mpeg4FileParser {
         this._first_header = Mpeg4BoxHeader.fromFileAndPosition(file, 0);
 
         // TODO: is this comparison correct? See original code.
-        if (this._first_header.boxType !== ByteVector.fromString("ftyp", StringType.UTF8)) {
+        if (this._first_header.boxType.toString(StringType.UTF8) !== "ftyp") {
             throw new Error("File does not start with 'ftyp' box.");
         }
     }

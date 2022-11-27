@@ -184,13 +184,13 @@ export default class Mpeg4BoxHeader {
         header._boxSize = 8;
         header._headerSize = 8;
 
-        if (type.toString(StringType.UTF8) !== "uuid") {
+        if (type !== Mpeg4BoxType.Uuid) {
             if (extendedType !== null && extendedType !== undefined) {
                 throw new Error("Extended type only permitted for 'uuid'.");
             }
 
             header._extendedType = extendedType;
-            return;
+            return header;
         }
 
         Guards.notNullOrUndefined(extendedType, "extendedType");
@@ -201,7 +201,7 @@ export default class Mpeg4BoxHeader {
 
         header._extendedType = extendedType;
 
-        return new Mpeg4BoxHeader();
+        return header;
     }
 
     /**

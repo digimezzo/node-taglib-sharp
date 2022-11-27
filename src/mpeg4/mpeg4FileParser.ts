@@ -356,7 +356,7 @@ export default class Mpeg4FileParser {
                 this._stsd_boxes.push(Mpeg4BoxFactory.createBoxFromFileHeaderAndHandler(this._file, header, handler));
             } else if (header.boxType === Mpeg4BoxType.Hdlr) {
                 handler = Mpeg4BoxFactory.createBoxFromFileHeaderAndHandler(this._file, header, handler) as IsoHandlerBox;
-            } else if (this._mvhd_box === null && this._mvhd_box === undefined && header.boxType === Mpeg4BoxType.Mvhd) {
+            } else if ((this._mvhd_box === null || this._mvhd_box === undefined) && header.boxType === Mpeg4BoxType.Mvhd) {
                 this._mvhd_box = Mpeg4BoxFactory.createBoxFromFileHeaderAndHandler(this._file, header, handler) as IsoMovieHeaderBox;
             } else if (header.boxType === Mpeg4BoxType.Udta) {
                 const udtaBox: IsoUserDataBox = Mpeg4BoxFactory.createBoxFromFileHeaderAndHandler(

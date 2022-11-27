@@ -2,6 +2,8 @@ import { ByteVector, StringType } from "../byteVector";
 import { File } from "../file";
 import { IAudioCodec, IVideoCodec, MediaTypes } from "../properties";
 import { Guards, StringUtils } from "../utils";
+import { AppleDataBoxFlagType } from "./appleDataBoxFlagType";
+import { DescriptorTag } from "./descriptorTag";
 import Mpeg4BoxFactory from "./mpeg4BoxFactory";
 import Mpeg4BoxHeader from "./mpeg4BoxHeader";
 import Mpeg4BoxType from "./mpeg4BoxType";
@@ -15,9 +17,7 @@ import Mpeg4BoxType from "./mpeg4BoxType";
  * @see FullBox
  * @see AppleAdditionalInfoBox
  * @see AppleAnnotationBox
- * @see AppleDataBoxFlagType
  * @see AppleDataBox
- * @see DescriptorTag
  * @see AppleElementaryStreamDescriptor
  * @see AppleItemListBox
  * @see IsoSampleEntry
@@ -609,41 +609,6 @@ export default class AppleAnnotationBox extends Mpeg4Box {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Specifies the type of data contained in a box.
- */
-export enum AppleDataBoxFlagType {
-    /**
-     * The box contains UTF-8 text.
-     */
-    ContainsText = 0x01,
-
-    /**
-     * The box contains binary data.
-     */
-    ContainsData = 0x00,
-
-    /**
-     * The box contains data for a tempo box.
-     */
-    ForTempo = 0x15,
-
-    /**
-     * The box contains a raw JPEG image.
-     */
-    ContainsJpegData = 0x0d,
-
-    /**
-     * The box contains a raw PNG image.
-     */
-    ContainsPngData = 0x0e,
-
-    /**
-     * The box contains a raw BMP image.
-     */
-    ContainsBmpData = 0x1b,
-}
-
-/**
  * This class extends @see FullBox to provide an implementation of an Apple DataBox.
  */
 export class AppleDataBox extends FullBox {
@@ -730,61 +695,6 @@ export class AppleDataBox extends FullBox {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Descriptor Tags
- */
-export enum DescriptorTag {
-    Forbidden_00 = 0,
-    ObjectDescrTag = 1,
-    InitialObjectDescrTag = 2,
-    ES_DescrTag = 3,
-    DecoderConfigDescrTag = 4,
-    DecSpecificInfoTag = 5,
-    SLConfigDescrTag = 6,
-    ContentIdentDescrTag = 7,
-    SupplContentIdentDescrTag = 8,
-    IPI_DescrPointerTag = 9,
-    IPMP_DescrPointerTag = 10,
-    IPMP_DescrTag = 11,
-    QoS_DescrTag = 12,
-    RegistrationDescrTag = 13,
-    ES_ID_IncTag = 14,
-    ES_ID_RefTag = 15,
-    MP4_IOD_Tag = 16,
-    MP4_OD_Tag = 17,
-    IPL_DescrPointerRefTag = 18,
-    ExtensionProfileLevelDescrTag = 19,
-    profileLevelIndicationIndexDescrTag = 20,
-    ReservedForFutureISOUse_15_TO_3F = 21,
-    ContentClassificationDescrTag = 64,
-    KeyWordDescrTag = 65,
-    RatingDescrTag = 66,
-    LanguageDescrTag = 67,
-    ShortTextualDescrTag = 68,
-    ExpandedTextualDescrTag = 69,
-    ContentCreatorNameDescrTag = 70,
-    ContentCreationDateDescrTag = 71,
-    OCICreatorNameDescrTag = 72,
-    OCICreationDateDescrTag = 73,
-    SmpteCameraPositionDescrTag = 74,
-    SegmentDescrTag = 75,
-    MediaTimeDescrTag = 76,
-    ReservedForFutureISOUseOCI = 77,
-    IPMP_ToolsListDescrTag = 96,
-    IPMP_ToolTag = 97,
-    M4MuxTimingDescrTag = 98,
-    M4MuxCodeTableDescrTag = 99,
-    ExtSLConfigDescrTag = 100,
-    M4MuxBufferSizeDescrTag = 101,
-    M4MuxIdentDescrTag = 102,
-    DependencyPointerTag = 103,
-    DependencyMarkerTag = 104,
-    M4MuxChannelDescrTag = 105,
-    ReservedForFutureISO_6A_TO_BF = 106,
-    UserPrivate = 192,
-    Forbidden_FF = 255,
-}
 
 /**
  * This class extends @see FullBox to provide an implementation of an Apple ElementaryStreamDescriptor.

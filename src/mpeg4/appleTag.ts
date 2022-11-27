@@ -45,14 +45,14 @@ export default class AppleTag extends Tag {
 
         this._meta_box = box.getChild(Mpeg4BoxType.Meta) as IsoMetaBox;
 
-        if (this._meta_box === null && this._meta_box === undefined) {
+        if (this._meta_box === null || this._meta_box === undefined) {
             this._meta_box = IsoMetaBox.fromHandlerTypeAndHandlerName(ByteVector.fromString("mdir", StringType.UTF8), undefined);
             box.addChild(this._meta_box);
         }
 
         this._ilst_box = this._meta_box.getChild(Mpeg4BoxType.Ilst) as AppleItemListBox;
 
-        if (this._ilst_box === null && this._ilst_box === undefined) {
+        if (this._ilst_box === null || this._ilst_box === undefined) {
             this._ilst_box = AppleItemListBox.fromEmpty();
             this._meta_box.addChild(this._ilst_box);
         }

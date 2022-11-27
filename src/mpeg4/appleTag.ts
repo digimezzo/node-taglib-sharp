@@ -2,11 +2,11 @@ import * as DateFormat from "dateformat";
 import { Genres } from "..";
 import { ByteVector, StringType } from "../byteVector";
 import { Tag, TagTypes } from "../tag";
-import { Guards, NumberUtils } from "../utils";
+import { Guards } from "../utils";
+import { AppleDataBoxFlagType } from "./appleDataBoxFlagType";
 import AppleAnnotationBox, {
     AppleAdditionalInfoBox,
     AppleDataBox,
-    AppleDataBoxFlagType,
     AppleItemListBox,
     IsoMetaBox,
     IsoUserDataBox,
@@ -249,16 +249,13 @@ export default class AppleTag extends Tag {
      */
     public get year(): number {
         for (const box of this.dataBoxesFromTypeParams(Mpeg4BoxType.Day)) {
-            let value: number = 0;
+            if (box.text !== null && box.text !== undefined) {
+                const textWithMaxLengthOfFour: string = box.text.length > 4 ? box.text.substring(0, 4) : box.text;
+                const value: number = Number.parseInt(textWithMaxLengthOfFour, 10);
 
-            if (
-                box.text !== null &&
-                box.text !== undefined &&
-                // TODO: this is dangerous. Not sure if assignment of value works (Also, what happens if set as "const" instead of "let").
-                (NumberUtils.tryParseInt(box.text, value) ||
-                    NumberUtils.tryParseInt(box.text.length > 4 ? box.text.substring(0, 4) : box.text, value))
-            ) {
-                return value;
+                if (!Number.isNaN(value)) {
+                    return value;
+                }
             }
         }
 
@@ -678,10 +675,9 @@ export default class AppleTag extends Tag {
             text = text.substring(0, text.length - 2).trim();
         }
 
-        let value: number = 0;
+        const value: number = Number.parseInt(text, 10);
 
-        // TODO: dangerous
-        if (NumberUtils.tryParseInt(text, value)) {
+        if (!Number.isNaN(value)) {
             return value;
         }
 
@@ -697,10 +693,14 @@ export default class AppleTag extends Tag {
      */
     public get replayGainTrackPeak(): number {
         let text: string = this.getDashBox("com.apple.iTunes", "REPLAYGAIN_TRACK_PEAK");
-        let value: number = 0;
 
-        // TODO: dangerous
-        if (text && NumberUtils.tryParseInt(text, value)) {
+        if (text === null || text === undefined) {
+            return NaN;
+        }
+
+        const value: number = Number.parseInt(text, 10);
+
+        if (!Number.isNaN(value)) {
             return value;
         }
 
@@ -725,10 +725,9 @@ export default class AppleTag extends Tag {
             text = text.substring(0, text.length - 2).trim();
         }
 
-        let value: number = 0;
+        const value: number = Number.parseInt(text, 10);
 
-        // TODO: dangerous
-        if (NumberUtils.tryParseInt(text, value)) {
+        if (!Number.isNaN(value)) {
             return value;
         }
 
@@ -744,10 +743,14 @@ export default class AppleTag extends Tag {
      */
     public get replayGainAlbumPeak(): number {
         let text: string = this.getDashBox("com.apple.iTunes", "REPLAYGAIN_ALBUM_PEAK");
-        let value: number = 0;
 
-        // TODO: dangerous
-        if (text && NumberUtils.tryParseInt(text, value)) {
+        if (text === null || text === undefined) {
+            return NaN;
+        }
+
+        const value: number = Number.parseInt(text, 10);
+
+        if (!Number.isNaN(value)) {
             return value;
         }
 

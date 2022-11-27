@@ -1,3 +1,4 @@
+import { NumberUtils } from "src/utils";
 import { File, FileAccessMode, ReadStyle } from "../file";
 import { IFileAbstraction } from "../fileAbstraction";
 import { Properties } from "../properties";
@@ -57,7 +58,7 @@ export default class Mpeg4File extends File {
             // Read the file
             const parser = new Mpeg4FileParser(this);
 
-            if ((readStyle & ReadStyle.Average) === 0) {
+            if (readStyle === ReadStyle.Average) {
                 parser.parseTag();
             } else {
                 parser.parseTagAndProperties();
@@ -76,7 +77,8 @@ export default class Mpeg4File extends File {
 
             // Check if a udta with ILST actually exists
             if (this.isAppleTagUdtaPresent()) {
-                this.tagTypesOnDisk |= TagTypes.Apple; // There is an udta present with ILST info
+                // There is an udta present with ILST info
+                this.tagTypesOnDisk = NumberUtils.uintOr(this.tagTypesOnDisk, TagTypes.Apple);
             }
 
             // Find the udta box with the Apple Tag ILST

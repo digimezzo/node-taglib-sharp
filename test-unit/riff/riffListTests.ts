@@ -1,12 +1,12 @@
-import {suite, test} from "@testdeck/mocha";
-import {assert} from "chai";
-import {Mock} from "typemoq";
+import { suite, test } from "@testdeck/mocha";
+import { assert } from "chai";
+import { Mock } from "typemoq";
 
+import { ByteVector, StringType } from "../../src/byteVector";
+import { File } from "../../src/file";
 import RiffList from "../../src/riff/riffList";
+import { Testers } from "../utilities/testers";
 import TestFile from "../utilities/testFile";
-import {ByteVector, StringType} from "../../src/byteVector";
-import {File} from "../../src/File";
-import {Testers} from "../utilities/testers";
 
 const data1 = ByteVector.fromString("foo", StringType.UTF8);
 const data2 = ByteVector.fromString("barbaz", StringType.UTF8);
@@ -16,7 +16,8 @@ const data5 = ByteVector.fromString("234", StringType.UTF8);
 const sampleData = ByteVector.concatenate(
     ByteVector.fromString("TXT1", StringType.UTF8),
     ByteVector.fromUint(data1.length, false),
-    data1, 0x00,
+    data1,
+    0x00,
     ByteVector.fromString("TXT1", StringType.UTF8),
     ByteVector.fromUint(data2.length, false),
     data2,
@@ -25,10 +26,12 @@ const sampleData = ByteVector.concatenate(
     data3,
     ByteVector.fromString("TXT3", StringType.UTF8),
     ByteVector.fromUint(data4.length, false),
-    data4, 0x00,
+    data4,
+    0x00,
     ByteVector.fromString("TXT3", StringType.UTF8),
     ByteVector.fromUint(data5.length, false),
-    data5, 0x00
+    data5,
+    0x00
 );
 
 const sampleList = ByteVector.concatenate(
@@ -45,7 +48,8 @@ const sampleNestedList = ByteVector.concatenate(
     sampleList
 );
 
-@suite class RiffList_ConstructorTests {
+@suite
+class RiffList_ConstructorTests {
     @test
     public fromFile_invalidValue() {
         // Arrange
@@ -80,10 +84,7 @@ const sampleNestedList = ByteVector.concatenate(
     @test
     public fromFile_listWithValues() {
         // Arrange
-        const data = ByteVector.concatenate(
-            ByteVector.fromSize(10),
-            sampleList
-        );
+        const data = ByteVector.concatenate(ByteVector.fromSize(10), sampleList);
         const mockFile = TestFile.getFile(data);
 
         // Act
@@ -97,10 +98,7 @@ const sampleNestedList = ByteVector.concatenate(
     @test
     public fromFile_listWithNestedLists() {
         // Arrange
-        const data = ByteVector.concatenate(
-            ByteVector.fromSize(10),
-            sampleNestedList
-        );
+        const data = ByteVector.concatenate(ByteVector.fromSize(10), sampleNestedList);
         const mockFile = TestFile.getFile(data);
 
         // Act
@@ -153,7 +151,8 @@ const sampleNestedList = ByteVector.concatenate(
     }
 }
 
-@suite class RiffList_MethodTests {
+@suite
+class RiffList_MethodTests {
     @test
     public clear() {
         // Arrange

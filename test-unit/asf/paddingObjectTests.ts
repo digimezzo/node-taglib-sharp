@@ -1,20 +1,27 @@
-import {suite, test} from "@testdeck/mocha";
-import {assert} from "chai";
+import { suite, test } from "@testdeck/mocha";
+import { assert } from "chai";
 
-import ObjectTests from "./objectTests";
-import PaddingObject from "../../src/asf/objects/PaddingObject";
-import PropertyTests from "../utilities/propertyTests";
-import TestFile from "../utilities/testFile";
+import { Guids, ObjectType } from "../../src/asf/constants";
+import PaddingObject from "../../src/asf/objects/paddingObject";
+import { ByteVector } from "../../src/byteVector";
+import { File } from "../../src/file";
 import UuidWrapper from "../../src/uuidWrapper";
-import {ByteVector} from "../../src/byteVector";
-import {Guids, ObjectType} from "../../src/asf/constants";
-import {File} from "../../src/file";
-import {Testers} from "../utilities/testers";
+import PropertyTests from "../utilities/propertyTests";
+import { Testers } from "../utilities/testers";
+import TestFile from "../utilities/testFile";
+import ObjectTests from "./objectTests";
 
-@suite class Asf_PaddingObjectTests extends ObjectTests<PaddingObject> {
-    protected get fromFileConstructor(): (f: File, p: number) => PaddingObject { return PaddingObject.fromFile; }
-    protected get minSize(): number { return undefined; }
-    protected get objectGuid(): UuidWrapper { return Guids.ASF_PADDING_OBJECT; }
+@suite
+class Asf_PaddingObjectTests extends ObjectTests<PaddingObject> {
+    protected get fromFileConstructor(): (f: File, p: number) => PaddingObject {
+        return PaddingObject.fromFile;
+    }
+    protected get minSize(): number {
+        return undefined;
+    }
+    protected get objectGuid(): UuidWrapper {
+        return Guids.ASF_PADDING_OBJECT;
+    }
 
     @test
     public fromFile_validParameters() {
@@ -63,7 +70,7 @@ import {Testers} from "../utilities/testers";
         const object = PaddingObject.fromSize(123);
 
         // Act / Assert
-        Testers.testSafeUint((v) => object.size = v);
+        Testers.testSafeUint((v) => (object.size = v));
     }
 
     @test
@@ -72,7 +79,11 @@ import {Testers} from "../utilities/testers";
         const object = PaddingObject.fromSize(123);
 
         // Act / Assert
-        PropertyTests.propertyRoundTrip((v) => object.size = v, () => object.size, 888);
+        PropertyTests.propertyRoundTrip(
+            (v) => (object.size = v),
+            () => object.size,
+            888
+        );
 
         // Act
         const output = object.render();

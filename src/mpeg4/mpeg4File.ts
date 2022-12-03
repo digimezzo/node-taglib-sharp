@@ -51,6 +51,7 @@ export default class Mpeg4File extends File {
     }
 
     private read(readStyle: ReadStyle): void {
+        // TODO: Support Id3v2 boxes!!!
         this._tag = new Mpeg4Tag();
         this.mode = FileAccessMode.Read;
 

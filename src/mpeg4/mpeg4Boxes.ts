@@ -39,7 +39,7 @@ import NumberByReference from "./numberByReference";
  */
 
 /**
- *  Provides a generic implementation of a ISO/IEC 14496-12 box.
+ * This class provides a generic implementation of a ISO/IEC 14496-12 box.
  */
 export class Mpeg4Box {
     /**
@@ -1005,6 +1005,9 @@ export class AppleItemListBox extends Mpeg4Box {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * This class extends @see Mpeg4Box to provide an implementation of a ISO/IEC 14496-12 SampleEntry.
+ */
 export class IsoSampleEntry extends Mpeg4Box {
     /**
      * The data reference index of the current instance.
@@ -1484,8 +1487,7 @@ export class IsoHandlerBox extends FullBox {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Constructs and initializes a new instance of @see IsoMetaBox with a provided header and
- * handler by reading the contents from a specified file.
+ * This class extends @see FullBox to provide an implementation of a ISO/IEC 14496-12 MetaBox.
  */
 export class IsoMetaBox extends FullBox {
     /**
@@ -1925,6 +1927,9 @@ export class UnknownBox extends Mpeg4Box {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * Represent a MP4 URL box
+ */
 export class UrlBox extends Mpeg4Box {
     /**
      * Private constructor to force construction via static functions.

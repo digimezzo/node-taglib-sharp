@@ -72,7 +72,7 @@ export default class Mpeg4BoxFactory {
                 return UnknownBox.fromHeaderFileAndHandler(header, file, handler);
             }
 
-            return IsoSampleEntry.fromHeaderFileAndHandler(header, file, handler, 0);
+            return IsoSampleEntry.fromHeaderFileAndHandler(header, file, handler);
         }
 
         // Standard items...
@@ -165,7 +165,7 @@ export default class Mpeg4BoxFactory {
      * @returns A newly created @see Mpeg4Box object.
      */
     public static createBoxFromFileHeaderAndHandler(file: File, header: Mpeg4BoxHeader, handler: IsoHandlerBox): Mpeg4Box {
-        return Mpeg4BoxFactory.createBoxFromFileHeaderParentHandlerAndIndex(file, header, Mpeg4BoxHeader.empty, handler, -1);
+        return Mpeg4BoxFactory.createBoxFromFileHeaderParentHandlerAndIndex(file, header, Mpeg4BoxHeader.fromEmpty(), handler, -1);
     }
 
     /**

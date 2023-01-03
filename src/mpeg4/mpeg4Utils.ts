@@ -3,7 +3,7 @@ import Mpeg4BoxHeader from "./mpeg4BoxHeader";
 
 export default class Mpeg4Utils {
     /**
-     * Converts the provided ID into a readonly ID and fixes a 3 byte ID.
+     * Fixes a 3 byte ID.
      * @param id A <see cref="ByteVector" /> object containing an ID to fix.
      * @returns A fixed @see ByteVector or undefined if the ID could not be fixed.
      */

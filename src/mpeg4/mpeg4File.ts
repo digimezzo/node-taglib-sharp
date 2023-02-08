@@ -119,7 +119,6 @@ export default class Mpeg4File extends File {
             const visual_sample_entry: IsoVisualSampleEntry = parser.visualSampleEntry;
 
             // Read the properties.
-            // TODO: is this usage of the Properties constructor correct?
             this._properties = new Properties(mvhd_box.durationInMilliseconds, [audio_sample_entry, visual_sample_entry]);
         } finally {
             this.mode = FileAccessMode.Closed;

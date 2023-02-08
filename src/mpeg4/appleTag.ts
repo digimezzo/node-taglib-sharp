@@ -69,8 +69,7 @@ export default class AppleTag extends Tag {
         return false;
     }
     public set isCompilation(v: boolean) {
-        // TODO: is it correct to use ByteVector.fromInt here?
-        this.setDataFromTypeDataAndFlags(Mpeg4BoxType.Cpil, ByteVector.fromInt(v ? 1 : 0), <number>AppleDataBoxFlagType.ForTempo);
+        this.setDataFromTypeDataAndFlags(Mpeg4BoxType.Cpil, ByteVector.fromByte(v ? 1 : 0), <number>AppleDataBoxFlagType.ForTempo);
     }
 
     /**
@@ -227,7 +226,7 @@ export default class AppleTag extends Tag {
                 continue;
             }
 
-            const str: string = Genres.indexToAudio(index - 1, false); // TODO: not sure allowParenthesis should be false here
+            const str: string = Genres.indexToAudio(index - 1, false);
 
             if (str === null || str === undefined) {
                 continue;
@@ -871,7 +870,6 @@ export default class AppleTag extends Tag {
                     continue;
                 }
 
-                // TODO: hopefully this is correct. I hate yield return (see original code).
                 for (const dataBox of box.children) {
                     if (dataBox instanceof AppleDataBox) {
                         dataBoxes.push(dataBox as AppleDataBox);
@@ -923,7 +921,6 @@ export default class AppleTag extends Tag {
                 continue;
             }
 
-            // TODO: hopefully this is correct. I hate yield return (see original code).
             const dataBoxes: AppleDataBox[] = [];
 
             for (const dataBox of box.children) {

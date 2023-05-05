@@ -1,6 +1,6 @@
 import { suite, test } from "@testdeck/mocha";
 import { assert } from "chai";
-import { ByteVector, Mpeg4File, ReadStyle } from "../../src";
+import { ByteVector, Mpeg4File, Picture, PictureType, ReadStyle } from "../../src";
 import { IFileAbstraction } from "../../src/fileAbstraction";
 import { default as TestFile } from "../utilities/testFile";
 
@@ -539,7 +539,29 @@ class Mpeg4Tests {
 
     @test
     public testPictures() {
+        // Arrange
+        const file: Mpeg4File = this.createFile();
+
+        const pictures: Picture[] = [
+            Picture.fromData(ByteVector.fromSize(1)),
+            Picture.fromData(ByteVector.fromSize(2)),
+            Picture.fromData(ByteVector.fromSize(3)),
+            Picture.fromData(ByteVector.fromSize(4)),
+            Picture.fromData(ByteVector.fromSize(5)),
+            Picture.fromData(ByteVector.fromSize(6)),
+        ];
+
+        for (let i = 0; i < pictures.length; i++) {
+            pictures[i].type = <PictureType>(i * 2);
+        }
+
+        pictures[3].description = this.singleValue;
+
         // TODO
+
+        // Act
+
+        // Assert
     }
 
     @test
@@ -874,6 +896,56 @@ class Mpeg4Tests {
 
     @test
     public testClear() {
-        // TODO
+        // Arrange
+        const file: Mpeg4File = this.createFile();
+
+        file.tag.title = "A";
+        file.tag.performers = ["B"];
+        file.tag.albumArtists = ["C"];
+        file.tag.composers = ["D"];
+        file.tag.album = "E";
+        file.tag.comment = "F";
+        file.tag.genres = ["Blues"];
+        file.tag.year = 123;
+        file.tag.track = 234;
+        file.tag.trackCount = 234;
+        file.tag.disc = 234;
+        file.tag.discCount = 234;
+        file.tag.lyrics = "G";
+        file.tag.grouping = "H";
+        file.tag.beatsPerMinute = 234;
+        file.tag.conductor = "I";
+        file.tag.copyright = "J";
+        file.tag.pictures = [Picture.fromData(ByteVector.fromSize(10))];
+
+        const initialIsEmpty = file.tag.isEmpty;
+
+        file.tag.clear();
+
+        const clearedIsEmpty = file.tag.isEmpty;
+
+        // Act
+
+        // Assert
+        assert.isFalse(initialIsEmpty);
+        assert.isTrue(clearedIsEmpty);
+        assert.isUndefined(file.tag.title);
+        assert.equal(0, file.tag.performers.length);
+        assert.equal(0, file.tag.albumArtists.length);
+        assert.equal(0, file.tag.composers.length);
+        assert.isUndefined(file.tag.album);
+        assert.isUndefined(file.tag.comment);
+        assert.equal(0, file.tag.genres.length);
+        assert.equal(0, file.tag.year);
+        assert.equal(0, file.tag.track);
+        assert.equal(0, file.tag.trackCount);
+        assert.equal(0, file.tag.disc);
+        assert.equal(0, file.tag.discCount);
+        assert.isUndefined(file.tag.lyrics);
+        assert.isUndefined(file.tag.comment);
+        assert.equal(0, file.tag.beatsPerMinute);
+        assert.isUndefined(file.tag.conductor);
+        assert.isUndefined(file.tag.copyright);
+        assert.equal(0, file.tag.pictures.length);
     }
 }

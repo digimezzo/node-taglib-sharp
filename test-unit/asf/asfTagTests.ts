@@ -1,31 +1,33 @@
-import { suite, test } from "@testdeck/mocha";
-import { assert } from "chai";
-import { Mock } from "typemoq";
+import {suite, test} from "@testdeck/mocha";
+import {assert} from "chai";
+import {Mock} from "typemoq";
 
 import AsfTag from "../../src/asf/asfTag";
-import { Guids } from "../../src/asf/constants";
 import BaseObject from "../../src/asf/objects/baseObject";
 import ContentDescriptionObject from "../../src/asf/objects/contentDescriptionObject";
-import { DataType, DescriptorBase, DescriptorValue } from "../../src/asf/objects/descriptorBase";
-import { ContentDescriptor, ExtendedContentDescriptionObject } from "../../src/asf/objects/extendedContentDescriptionObject";
-import HeaderExtensionObject from "../../src/asf/objects/headerExtensionObject";
 import HeaderObject from "../../src/asf/objects/headerObject";
-import { MetadataDescriptor, MetadataLibraryObject } from "../../src/asf/objects/metadataLibraryObject";
-import { ByteVector, StringType } from "../../src/byteVector";
-import { IPicture, PictureType } from "../../src/picture";
-import { TagTypes } from "../../src/tag";
 import PropertyTests from "../utilities/propertyTests";
-import { TagTesters, Testers } from "../utilities/testers";
 import TestFile from "../utilities/testFile";
+import {ByteVector, StringType} from "../../src/byteVector";
+import {Guids} from "../../src/asf/constants";
+import {DataType, DescriptorBase, DescriptorValue} from "../../src/asf/objects/descriptorBase";
+import {
+    ContentDescriptor,
+    ExtendedContentDescriptionObject
+} from "../../src/asf/objects/extendedContentDescriptionObject";
+import HeaderExtensionObject from "../../src/asf/objects/headerExtensionObject";
+import {IPicture, PictureType} from "../../src/picture";
+import {MetadataDescriptor, MetadataLibraryObject} from "../../src/asf/objects/metadataLibraryObject";
+import {TagTypes} from "../../src/tag";
+import {TagTesters, Testers} from "../utilities/testers";
 
 const getHeaderObject: (children: BaseObject[]) => HeaderObject = (children: BaseObject[]) => {
-    const childrenBytes = ByteVector.concatenate(...children.map((o) => o.render()));
+    const childrenBytes = ByteVector.concatenate(... children.map((o) => o.render()));
     const headerBytes = ByteVector.concatenate(
         Guids.ASF_HEADER_OBJECT.toBytes(), // Object ID
         ByteVector.fromUlong(30 + childrenBytes.length, false), // Object size
         ByteVector.fromUint(children.length, false), // Child objects
-        0x01,
-        0x02, // Reserved bytes
+        0x01, 0x02, // Reserved bytes
         childrenBytes
     );
     const headerFile = TestFile.getFile(headerBytes);
@@ -33,7 +35,7 @@ const getHeaderObject: (children: BaseObject[]) => HeaderObject = (children: Bas
 };
 
 const getHeaderExtensionObject: (children: BaseObject[]) => HeaderExtensionObject = (children: BaseObject[]) => {
-    const childrenBytes = ByteVector.concatenate(...children.map((o) => o.render()));
+    const childrenBytes = ByteVector.concatenate(... children.map((o) => o.render()));
     const headerExtBytes = ByteVector.concatenate(
         Guids.ASF_HEADER_EXTENSION_OBJECT.toBytes(), // Object ID
         ByteVector.fromUlong(46 + childrenBytes.length, false), // Object size
@@ -46,11 +48,12 @@ const getHeaderExtensionObject: (children: BaseObject[]) => HeaderExtensionObjec
     return HeaderExtensionObject.fromFile(headerExtFile, 0);
 };
 
-const getTagWithExtensionDescriptor: (descriptorName: string, descriptorType: DataType, descriptorValue: DescriptorValue) => AsfTag = (
+const getTagWithExtensionDescriptor: (
     descriptorName: string,
     descriptorType: DataType,
     descriptorValue: DescriptorValue
-) => {
+) => AsfTag
+    = (descriptorName: string, descriptorType: DataType, descriptorValue: DescriptorValue) => {
     const descriptor = new ContentDescriptor(descriptorName, descriptorType, descriptorValue);
     const ecdo = ExtendedContentDescriptionObject.fromEmpty();
     ecdo.addDescriptor(descriptor);
@@ -59,8 +62,7 @@ const getTagWithExtensionDescriptor: (descriptorName: string, descriptorType: Da
     return AsfTag.fromHeader(header);
 };
 
-@suite
-class Asf_Tag_ConstructorTests {
+@suite class Asf_Tag_ConstructorTests {
     @test
     public fromEmpty() {
         // Act
@@ -140,16 +142,15 @@ class Asf_Tag_ConstructorTests {
         assert.strictEqual(tag.metadataLibraryObject.records.length, 1);
         assert.strictEqual(tag.metadataLibraryObject.records[0].name, "baz");
 
-        TagTesters.testTagProperties(tag, { title: "foo" });
+        TagTesters.testTagProperties(tag, {title: "foo"});
     }
 }
 
-@suite
-class Asf_Tag_PropertyTests {
+@suite class Asf_Tag_PropertyTests {
     @test
     public title() {
         this.testContentDescriptorField(
-            (t, v) => (t.title = v),
+            (t, v) => t.title = v,
             (t) => t.title,
             (cd) => cd.title
         );
@@ -158,7 +159,7 @@ class Asf_Tag_PropertyTests {
     @test
     public subtitle() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.subtitle = v),
+            (t, v) => t.subtitle = v,
             (t) => t.subtitle,
             "WM/SubTitle"
         );
@@ -167,7 +168,7 @@ class Asf_Tag_PropertyTests {
     @test
     public titleSort() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.titleSort = v),
+            (t, v) => t.titleSort = v,
             (t) => t.titleSort,
             "WM/TitleSortOrder"
         );
@@ -176,7 +177,7 @@ class Asf_Tag_PropertyTests {
     @test
     public description() {
         this.testContentDescriptorField(
-            (t, v) => (t.description = v),
+            (t, v) => t.description = v,
             (t) => t.description,
             (cd) => cd.description
         );
@@ -185,7 +186,7 @@ class Asf_Tag_PropertyTests {
     @test
     public performers() {
         this.testContentDescriptorArray(
-            (t, v) => (t.performers = v),
+            (t, v) => t.performers = v,
             (t) => t.performers,
             (cd) => cd.author
         );
@@ -194,7 +195,7 @@ class Asf_Tag_PropertyTests {
     @test
     public performersSort() {
         this.testExtendedDescriptionObjectStringArray(
-            (t, v) => (t.performersSort = v),
+            (t, v) => t.performersSort = v,
             (t) => t.performersSort,
             "WM/ArtistSortOrder"
         );
@@ -203,17 +204,16 @@ class Asf_Tag_PropertyTests {
     @test
     public albumArtists() {
         this.testExtendedDescriptionObjectStringArray(
-            (t, v) => (t.albumArtists = v),
+            (t, v) => t.albumArtists = v,
             (t) => t.albumArtists,
-            "WM/AlbumArtist",
-            "AlbumArtist"
+            "WM/AlbumArtist", "AlbumArtist"
         );
     }
 
     @test
     public albumArtistsSort() {
         this.testExtendedDescriptionObjectStringArray(
-            (t, v) => (t.albumArtistsSort = v),
+            (t, v) => t.albumArtistsSort = v,
             (t) => t.albumArtistsSort,
             "WM/AlbumArtistSortOrder"
         );
@@ -222,27 +222,25 @@ class Asf_Tag_PropertyTests {
     @test
     public composers() {
         this.testExtendedDescriptionObjectStringArray(
-            (t, v) => (t.composers = v),
+            (t, v) => t.composers = v,
             (t) => t.composers,
-            "WM/Composer",
-            "Composer"
+            "WM/Composer", "Composer"
         );
     }
 
     @test
     public album() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.album = v),
+            (t, v) => t.album = v,
             (t) => t.album,
-            "WM/AlbumTitle",
-            "Album"
+            "WM/AlbumTitle", "Album"
         );
     }
 
     @test
     public albumSort() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.albumSort = v),
+            (t, v) => t.albumSort = v,
             (t) => t.albumSort,
             "WM/AlbumSortOrder"
         );
@@ -251,7 +249,7 @@ class Asf_Tag_PropertyTests {
     @test
     public comment() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.comment = v),
+            (t, v) => t.comment = v,
             (t) => t.comment,
             "WM/Text"
         );
@@ -260,11 +258,9 @@ class Asf_Tag_PropertyTests {
     @test
     public genres_general() {
         this.testExtendedDescriptionObjectStringArray(
-            (t, v) => (t.genres = v),
+            (t, v) => t.genres = v,
             (t) => t.genres,
-            "WM/Genre",
-            "WM/GenreID",
-            "Genre"
+            "WM/Genre", "WM/GenreID", "Genre"
         );
     }
 
@@ -300,11 +296,7 @@ class Asf_Tag_PropertyTests {
         // Act / Assert
         assert.strictEqual(tag.year, 0);
 
-        PropertyTests.propertyRoundTrip(
-            (v) => (tag.year = v),
-            () => tag.year,
-            1234
-        );
+        PropertyTests.propertyRoundTrip((v) => tag.year = v, () => tag.year, 1234);
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors.length, 1);
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors[0].name, "WM/Year");
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors[0].type, DataType.Unicode);
@@ -314,7 +306,7 @@ class Asf_Tag_PropertyTests {
     @test
     public track() {
         this.testExtendedDescriptionObjectUintField(
-            (t, v) => (t.track = v),
+            (t, v) => t.track = v,
             (t) => t.track,
             "WM/TrackNumber",
             DataType.Unicode,
@@ -326,7 +318,7 @@ class Asf_Tag_PropertyTests {
     @test
     public trackCount() {
         this.testExtendedDescriptionObjectUintField(
-            (t, v) => (t.trackCount = v),
+            (t, v) => t.trackCount = v,
             (t) => t.trackCount,
             "TrackTotal",
             DataType.DWord,
@@ -377,7 +369,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testUint((v) => (tag.disc = v));
+        Testers.testUint((v) => tag.disc = v);
     }
 
     @test
@@ -496,7 +488,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testUint((v) => (tag.disc = v));
+        Testers.testUint((v) => tag.disc = v);
     }
 
     @test
@@ -567,7 +559,7 @@ class Asf_Tag_PropertyTests {
     @test
     public lyrics_general() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.lyrics = v),
+            (t, v) => t.lyrics = v,
             (t) => t.lyrics,
             "WM/Lyrics"
         );
@@ -576,7 +568,7 @@ class Asf_Tag_PropertyTests {
     @test
     public grouping() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.grouping = v),
+            (t, v) => t.grouping = v,
             (t) => t.grouping,
             "WM/ContentGroupDescription"
         );
@@ -585,7 +577,7 @@ class Asf_Tag_PropertyTests {
     @test
     public bpm() {
         this.testExtendedDescriptionObjectUintField(
-            (t, v) => (t.beatsPerMinute = v),
+            (t, v) => t.beatsPerMinute = v,
             (t) => t.beatsPerMinute,
             "WM/BeatsPerMinute",
             DataType.Unicode,
@@ -597,7 +589,7 @@ class Asf_Tag_PropertyTests {
     @test
     public conductor() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.conductor = v),
+            (t, v) => t.conductor = v,
             (t) => t.conductor,
             "WM/Conductor"
         );
@@ -606,7 +598,7 @@ class Asf_Tag_PropertyTests {
     @test
     public copyright() {
         this.testContentDescriptorField(
-            (t, v) => (t.copyright = v),
+            (t, v) => t.copyright = v,
             (t) => t.copyright,
             (cd) => cd.copyright
         );
@@ -615,7 +607,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzArtistId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzArtistId = v),
+            (t, v) => t.musicBrainzArtistId = v,
             (t) => t.musicBrainzArtistId,
             "MusicBrainz/Artist Id"
         );
@@ -624,7 +616,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzReleaseGroupId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzReleaseGroupId = v),
+            (t, v) => t.musicBrainzReleaseGroupId = v,
             (t) => t.musicBrainzReleaseGroupId,
             "MusicBrainz/Release Group Id"
         );
@@ -633,7 +625,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzReleaseId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzReleaseId = v),
+            (t, v) => t.musicBrainzReleaseId = v,
             (t) => t.musicBrainzReleaseId,
             "MusicBrainz/Album Id"
         );
@@ -642,7 +634,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzAlbumArtistId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzAlbumArtistId = v),
+            (t, v) => t.musicBrainzAlbumArtistId = v,
             (t) => t.musicBrainzAlbumArtistId,
             "MusicBrainz/Album Artist Id"
         );
@@ -651,7 +643,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzTrackId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzTrackId = v),
+            (t, v) => t.musicBrainzTrackId = v,
             (t) => t.musicBrainzTrackId,
             "MusicBrainz/Track Id"
         );
@@ -660,7 +652,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzDiscId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzDiscId = v),
+            (t, v) => t.musicBrainzDiscId = v,
             (t) => t.musicBrainzDiscId,
             "MusicBrainz/Disc Id"
         );
@@ -669,7 +661,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicIpId() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicIpId = v),
+            (t, v) => t.musicIpId = v,
             (t) => t.musicIpId,
             "MusicIP/PUID"
         );
@@ -678,7 +670,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzReleaseStatus() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzReleaseStatus = v),
+            (t, v) => t.musicBrainzReleaseStatus = v,
             (t) => t.musicBrainzReleaseStatus,
             "MusicBrainz/Album Status"
         );
@@ -687,7 +679,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzReleaseType() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzReleaseType = v),
+            (t, v) => t.musicBrainzReleaseType = v,
             (t) => t.musicBrainzReleaseType,
             "MusicBrainz/Album Type"
         );
@@ -696,7 +688,7 @@ class Asf_Tag_PropertyTests {
     @test
     public musicBrainzReleaseCountry() {
         this.testExtendedDescriptionObjectStringField(
-            (t, v) => (t.musicBrainzReleaseCountry = v),
+            (t, v) => t.musicBrainzReleaseCountry = v,
             (t) => t.musicBrainzReleaseCountry,
             "MusicBrainz/Album Release Country"
         );
@@ -768,7 +760,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testTruthy((v: number) => (tag.replayGainTrackGain = v));
+        Testers.testTruthy((v: number) => tag.replayGainTrackGain = v);
     }
 
     @test
@@ -842,7 +834,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testTruthy((v: number) => (tag.replayGainTrackPeak = v));
+        Testers.testTruthy((v: number) => tag.replayGainTrackPeak = v);
     }
 
     @test
@@ -940,7 +932,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testTruthy((v: number) => (tag.replayGainAlbumGain = v));
+        Testers.testTruthy((v: number) => tag.replayGainAlbumGain = v);
     }
 
     @test
@@ -1014,7 +1006,7 @@ class Asf_Tag_PropertyTests {
         const tag = AsfTag.fromEmpty();
 
         // Act / Assert
-        Testers.testTruthy((v: number) => (tag.replayGainAlbumPeak = v));
+        Testers.testTruthy((v: number) => tag.replayGainAlbumPeak = v);
     }
 
     @test
@@ -1370,15 +1362,18 @@ class Asf_Tag_PropertyTests {
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors.length, 1);
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors[0].name, descriptorName);
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors[0].type, expectedDescriptorType);
-        assert.strictEqual(expectedDescriptorReader(tag.extendedContentDescriptionObject.descriptors[0]), expectedDescriptorValue);
+        assert.strictEqual(
+            expectedDescriptorReader(tag.extendedContentDescriptionObject.descriptors[0]),
+            expectedDescriptorValue
+        );
 
         PropertyTests.propertyRoundTrip(setProp, getProp, 0);
         assert.strictEqual(tag.extendedContentDescriptionObject.descriptors.length, 0);
 
         // CASE 2: Load unicode or dword -----------------------------------
         const types = [
-            { dataType: DataType.Unicode, value: "1234" },
-            { dataType: DataType.DWord, value: 1234 },
+            {dataType: DataType.Unicode, value: "1234"},
+            {dataType: DataType.DWord, value: 1234}
         ];
         for (const params of types) {
             // Arrange
@@ -1395,8 +1390,7 @@ class Asf_Tag_PropertyTests {
     }
 }
 
-@suite
-class Asf_Tag_MethodTests {
+@suite class Asf_Tag_MethodTests {
     @test
     public pictureFromData_tooSmall() {
         // Arrange
@@ -1412,7 +1406,10 @@ class Asf_Tag_MethodTests {
     @test
     public pictureFromData_missingMimeTypeDelimiter() {
         // Arrange
-        const data = ByteVector.concatenate(ByteVector.fromUint(1234, false), ByteVector.fromSize(10, 0x01));
+        const data = ByteVector.concatenate(
+            ByteVector.fromUint(1234, false),
+            ByteVector.fromSize(10, 0x01)
+        );
 
         // Act
         const output = AsfTag.pictureFromData(data);
@@ -1424,7 +1421,10 @@ class Asf_Tag_MethodTests {
     @test
     public pictureFromData_missingMimeTypeDelimiterWithZeroes() {
         // Arrange
-        const data = ByteVector.concatenate(ByteVector.fromUint(1234, false), ByteVector.fromSize(10, 0x00));
+        const data = ByteVector.concatenate(
+            ByteVector.fromUint(1234, false),
+            ByteVector.fromSize(10, 0x00)
+        );
 
         // Act
         const output = AsfTag.pictureFromData(data);

@@ -1,6 +1,6 @@
 import { suite, test } from "@testdeck/mocha";
 import { assert } from "chai";
-import { ByteVector, Mpeg4File, Picture, PictureType, ReadStyle } from "../../src";
+import { ByteVector, IPicture, Mpeg4File, PictureLazy, ReadStyle, StringType } from "../../src";
 import { IFileAbstraction } from "../../src/fileAbstraction";
 import { default as TestFile } from "../utilities/testFile";
 
@@ -21,6 +21,15 @@ class Mpeg4Tests {
         const testAbstraction: IFileAbstraction = TestFile.getFileAbstraction(fileBytes);
 
         return new Mpeg4File(testAbstraction, ReadStyle.None);
+    }
+
+    private createPicture(pictureData: string): IPicture {
+        const data = ByteVector.concatenate(0xff, 0xd8, 0xff, ByteVector.fromString(pictureData, StringType.Latin1));
+
+        // Act
+        const picture = PictureLazy.fromData(data);
+
+        return picture;
     }
 
     @test
@@ -542,26 +551,28 @@ class Mpeg4Tests {
         // Arrange
         const file: Mpeg4File = this.createFile();
 
-        const pictures: Picture[] = [
-            Picture.fromData(ByteVector.fromSize(1)),
-            Picture.fromData(ByteVector.fromSize(2)),
-            Picture.fromData(ByteVector.fromSize(3)),
-            Picture.fromData(ByteVector.fromSize(4)),
-            Picture.fromData(ByteVector.fromSize(5)),
-            Picture.fromData(ByteVector.fromSize(6)),
-        ];
+        const pictures: IPicture[] = [this.createPicture("foo"), this.createPicture("bar"), this.createPicture("doe")];
+
+        // Act & Assert
+        assert.isTrue(file.tag.isEmpty);
+        assert.equal(file.tag.pictures.length, 0);
+
+        file.tag.pictures = pictures;
+
+        assert.isFalse(file.tag.isEmpty);
+        assert.equal(file.tag.pictures.length, pictures.length);
 
         for (let i = 0; i < pictures.length; i++) {
-            pictures[i].type = <PictureType>(i * 2);
+            assert.deepEqual(file.tag.pictures[i].data, pictures[i].data);
+            assert.equal(file.tag.pictures[i].type, pictures[i].type);
+            assert.equal(file.tag.pictures[i].description, pictures[i].description);
+            assert.equal(file.tag.pictures[i].mimeType, pictures[i].mimeType);
         }
 
-        pictures[3].description = this.singleValue;
+        file.tag.pictures = [];
 
-        // TODO
-
-        // Act
-
-        // Assert
+        assert.isTrue(file.tag.isEmpty);
+        assert.equal(file.tag.pictures.length, 0);
     }
 
     @test
@@ -916,7 +927,7 @@ class Mpeg4Tests {
         file.tag.beatsPerMinute = 234;
         file.tag.conductor = "I";
         file.tag.copyright = "J";
-        file.tag.pictures = [Picture.fromData(ByteVector.fromSize(10))];
+        file.tag.pictures = [this.createPicture("foo")];
 
         const initialIsEmpty = file.tag.isEmpty;
 

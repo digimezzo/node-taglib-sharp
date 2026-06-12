@@ -34,7 +34,7 @@ export default class MpegAudioFile extends SandwichFile {
         //    the duration and bitrate
 
         const searchStart = this.mediaStartPosition;
-        const searchEnd = searchStart + 0x400;
+        const searchEnd = Math.min(searchStart + 0x10000, this.mediaEndPosition);
         const streamLength = this.mediaEndPosition - this.mediaStartPosition;
 
         this._firstHeader = MpegAudioHeader.fromFile(this, searchStart, searchEnd, streamLength);

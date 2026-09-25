@@ -369,6 +369,26 @@ const getTestFrame = (): UserTextInformationFrame => {
     }
 
     @test
+    public findUserTextInformationFrame_undefinedDescriptionDoesNotBlockCaseInsensitiveMatch() {
+        const malformedBody = ByteVector.concatenate(
+            StringType.UTF16BE,
+            ByteVector.fromString("missing separator", StringType.UTF16BE)
+        );
+        const malformedHeader = new Id3v2FrameHeader(FrameIdentifiers.TXXX, Id3v2FrameFlags.None, malformedBody.length);
+        const malformedData = ByteVector.concatenate(malformedHeader.render(4), malformedBody);
+        const malformedFrame = UserTextInformationFrame.fromOffsetRawData(malformedData, 0, malformedHeader, 4);
+        const matchingFrame = UserTextInformationFrame.fromDescription("REPLAYGAIN_TRACK_GAIN");
+
+        const output = UserTextInformationFrame.findUserTextInformationFrame(
+            [malformedFrame, matchingFrame],
+            "replaygain_track_gain",
+            false
+        );
+
+        assert.strictEqual(output, matchingFrame);
+    }
+
+    @test
     public findUserTextInformationFrame_match_returnsFirstMatch() {
         // Arrange
         const frame1 = UserTextInformationFrame.fromDescription("foo");

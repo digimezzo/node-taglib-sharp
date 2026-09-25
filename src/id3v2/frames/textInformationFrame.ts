@@ -472,7 +472,7 @@ export class UserTextInformationFrame extends TextInformationFrame {
         Guards.truthy(description, "description");
 
         const comparison = caseSensitive ? StringComparison.caseSensitive : StringComparison.caseInsensitive;
-        return frames.find((f) => comparison(f.description, description));
+        return frames.find((f) => f.description !== undefined && f.description !== null && comparison(f.description, description));
     }
 
     /** @inheritDoc */
